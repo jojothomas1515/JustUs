@@ -1,0 +1,33 @@
+{% extends "authbase.html" %}
+{% block title %}
+    <title>JustUs Login</title>
+{% endblock %}
+{% block content %}
+    <form method="post">
+        <div class="user-icon-con">
+            <i class="fa fa-user-circle fa-5x"></i>
+        </div>
+        <div class="input-item-con"><i class="fa fa-user"></i><input id="firstname" name="firstname" type="text"
+                                                                     placeholder="First Name"></div>
+        <div class="input-item-con"><i class="fa fa-user"></i><input id="lastname" name="lastname" type="text"
+                                                                     placeholder="Last Name"></div>
+        <div class="input-item-con"><i class="fa fa-user"></i><input id="middlename" name="middlename" type="text"
+                                                                     placeholder="Middle Name"></div>
+
+        <div class="input-item-con"><i class="fa fa-envelope"></i><input id="email" name="email" type="email"
+                                                                         placeholder="Email Address"></div>
+        <div class="input-item-con"><i class="fa fa-lock"></i><input id="password" name="password" type="password"
+                                                                     placeholder="Password"> <i
+                class='show-password fa fa-eye'></i></div>
+        <div class="input-item-con"><i class="fa fa-lock"></i><input id="c-password" name="c-password" type="password"
+                                                                     placeholder="Confirm Password"> <i
+                class='show-password fa fa-eye'></i></div>
+        <div class="remember-forget">
+            {#            <label><input type="checkbox" name="remember_me" id="remember"> Remember Me</label>#}
+            {#            <a href="{{ url_for('authentication.password_reset') }}">Forgot Password?</a>#}
+            <p class="signup_login">already have an account? <a href="{{ url_for('authentication.login_page') }}"><em>Login</em></a>
+            </p>
+        </div>
+        <input id="login" type="submit" value="Sign Up">
+    </form>
+{% endblock %}
