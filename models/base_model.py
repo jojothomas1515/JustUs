@@ -1,25 +1,16 @@
 #!/usr/bin/env python
 """Base model to subclass for"""
-from os import getenv
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker, scoped_session
 from uuid import uuid4
 
-JUSTUS_USER = getenv('JUSTUS_USER', 'test')
-JUSTUS_PWD = getenv('JUSTUS_PWD', 'test_pwd')
-JUSTUS_HOST = getenv('JUSTUS_HOST', 'localhost')
-JUSTUS_DB = getenv('JUSTUS_DB', 'justus')
-engine = create_engine(
-    'postgresql+psycopg2://{user}:{passwd}@{host}/{dbname}'.format(user=JUSTUS_USER, passwd=JUSTUS_PWD,
-                                                                   host=JUSTUS_HOST, dbname=JUSTUS_DB))
+from sqlalchemy.orm import declarative_base
+
+from db import sess
+
 Base = declarative_base()
-Base.metadata.create_all(engine)
-# todo: move to proper position
-sess_factory = sessionmaker(bind=engine, expire_on_commit=False)
-Session = scoped_session(sess_factory)
-sess = Session()
+
+
+# Base.metadata.create_all(engine)
 
 
 class BaseModel:
@@ -39,3 +30,21 @@ class BaseModel:
         """Delete user object from database"""
         sess.delete(self)
         sess.commit()
+
+    @classmethod
+    def get(cls, key, value) -> object:
+        """Get a specific users
+        Args:
+            value: the data for to use as filter
+            key: the key to filter with
+        """
+        return sess.query(cls).filter(eval(f'cls.{key}') == value).first()
+    @classmethod
+    def all(cls):
+        """Get all of the class object in the database"""
+        return sess.query(cls).all()
+    def __str__(self):
+        """String representation."""
+        info: dict = self.__dict__
+        info.pop("_sa_instance_state")
+        return (str(info))

@@ -17,3 +17,5 @@ class User(BaseModel, Base):
     email = Column(String(200), nullable=False)
     date_of_birth = Column(Date, nullable=False)
     password = Column(String(200), nullable=False)
+
+

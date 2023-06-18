@@ -1,6 +1,7 @@
 from flask import render_template, request
-from authentication import auth_views
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from authentication import auth_views
 
 
 @auth_views.route('/login', strict_slashes=False, methods=['GET', 'POST'])
@@ -12,6 +13,7 @@ def login_page():
     print(ans)
     print(check_password_hash(ans, password))
     return render_template('login_page.html')
+
 
 @auth_views.route('/signup', strict_slashes=False, methods=['GET', 'POST'])
 def signup_page():
