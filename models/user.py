@@ -1,11 +1,12 @@
 #!/user/bin/env python
 """User model."""
 
-from base_model import Base
 from sqlalchemy import Column, String, Date
 
+from base_model import Base, BaseModel
 
-class User(Base):
+
+class User(BaseModel, Base):
     """Class to manipulate users table."""
 
     __tablename__ = "users"
