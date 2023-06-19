@@ -1,5 +1,6 @@
 "use strict";
 const show_password = document.querySelectorAll(".show-password");
+const signup_form = document.querySelector("#signup-form");
 function hideOrShow(element) {
     element.addEventListener('click', () => {
         const password = element.parentElement.querySelector('input');

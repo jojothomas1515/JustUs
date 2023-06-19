@@ -2,7 +2,6 @@ from base_model import sess, Base
 from db import engine
 from user import User
 
-Base.metadata.create_all(engine)
 print(sess.query(User).all())
 sess.close()
 print(sess.info)
@@ -20,3 +19,6 @@ for i in User.all():
 # usr = sess.query(User).filter(User.id == '1234').first()
 # usr.delete()
 # print(usr.__str__())
+
+
+# todo: delete this file

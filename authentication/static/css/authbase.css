@@ -137,5 +137,10 @@ form #login:hover {
   background-color: rgba(255, 255, 255, 0.4);
   box-shadow: none;
 }
+form .error {
+  font-size: 0.8rem;
+  color: rgba(255, 0, 0, 0.7);
+  width: 100%;
+}
 
 /*# sourceMappingURL=authbase.css.map */

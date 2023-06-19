@@ -5,7 +5,7 @@ from uuid import uuid4
 
 from sqlalchemy.orm import declarative_base
 
-from db import sess
+from models.db import sess
 
 Base = declarative_base()
 
@@ -32,11 +32,14 @@ class BaseModel:
         sess.commit()
 
     @classmethod
-    def get(cls, key, value) -> object:
+    def get(cls, key: object, value: object):
         """Get a specific users
         Args:
             value: the data for to use as filter
             key: the key to filter with
+
+        Returns:
+            User
         """
         return sess.query(cls).filter(eval(f'cls.{key}') == value).first()
     @classmethod

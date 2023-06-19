@@ -8,7 +8,7 @@
             <i class="fa fa-user-circle fa-5x"></i>
         </div>
         <div class="input-item-con"><i class="fa fa-envelope"></i><input id="email" name="email" type="email"
-                                                                     placeholder="Email Address"></div>
+                                                                         placeholder="Email Address"></div>
         <div class="input-item-con"><i class="fa fa-lock"></i><input id="password" name="password" type="password"
                                                                      placeholder="Password"> <i
                 class='show-password fa fa-eye'></i></div>
@@ -16,7 +16,13 @@
             <label><input type="checkbox" name="remember_me" id="remember"> Remember Me</label>
             <a href="{{ url_for('authentication.password_reset') }}">Forgot Password?</a>
         </div>
-        <p class="signup_login">Don't have an account? <a href="{{ url_for('authentication.signup_page') }}">Register</a></p>
+        {% if get_flashed_messages() %}
+            <p class="error">
+                {{ get_flashed_messages(True,'error')[0][1] }}
+            </p>
+        {% endif %}
+        <p class="signup_login">Don't have an account? <a
+                href="{{ url_for('authentication.signup_page') }}">Register</a></p>
         <input id="login" type="submit" value="Login">
     </form>
 {% endblock %}

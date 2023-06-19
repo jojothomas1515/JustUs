@@ -155,4 +155,10 @@ form {
       box-shadow: none;
     }
   }
+
+  .error {
+    font-size: .8rem;
+    color: rgba(red, .7);
+    width: 100%;
+  }
 }

@@ -1,4 +1,6 @@
 const show_password: NodeListOf<HTMLElement> = document.querySelectorAll(".show-password");
+const signup_form: HTMLFormElement = document.querySelector("#signup-form") as HTMLFormElement;
+
 
 function hideOrShow(element: HTMLElement) {
     element.addEventListener('click', () => {
