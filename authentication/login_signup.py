@@ -1,14 +1,26 @@
-from flask import render_template, request, flash, redirect, url_for, session
+#!/usr/bin/env python
+
+"""Module for signup views and login views."""
+import datetime as dt
+
+from flask import render_template, request, flash, redirect, url_for
+from flask_login import login_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, current_user, login_required
+
 from authentication import auth_views
 from models.user import User
-import datetime as dt
 
 
 @auth_views.route('/login', strict_slashes=False, methods=['GET', 'POST'])
 def login_page():
-    user = current_user
+    """Login page
+
+    Methods:
+        GET: return the login page.
+        POST: authenticate user and redirect to the chat page
+    """
+    if current_user.is_authenticated:
+        return redirect(url_for("chat.chats_page"))
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -20,7 +32,7 @@ def login_page():
             return render_template('login_page.html')
         if check_password_hash(user.password, password):
             if login_user(user=user, remember=remember, duration=dt.timedelta(days=7)):
-                return str(user.__dict__)
+                return redirect(url_for("chat.chats_page"))
             print(login_user(user=user, remember=remember, duration=dt.timedelta(days=7)))
             if not user.is_active:
                 flash("Inactive user", "error")
@@ -32,10 +44,15 @@ def login_page():
 
 
 @auth_views.route('/signup', strict_slashes=False, methods=['GET', 'POST'])
-@login_required
 def signup_page():
-    if session.get('logged_in'):
-        return session.get("username")
+    """Signup page
+
+        Methods:
+            GET: return the signup page.
+            POST: Register user and redirect to the login page
+    """
+    if current_user.is_authenticated:
+        return redirect(url_for("chat.chats_page"))
     if request.method == 'POST':
         first_name = request.form.get('firstname')
         last_name = request.form.get('lastname')
@@ -59,6 +76,7 @@ def signup_page():
     return render_template('signup_page.html')
 
 
+# todo: implement password reset
 @auth_views.route('/reset_password', strict_slashes=False, methods=['GET', 'POST'])
 def password_reset():
     pass

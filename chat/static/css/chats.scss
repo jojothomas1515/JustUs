@@ -1,0 +1,36 @@
+*, *::after, *::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(#00264d, #d18b8d);
+  background-size: contain;
+  background-attachment: fixed;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  header {
+    background-color: rgba(white, .8);
+    margin-inline:1%;
+    margin-top: min(1rem, 1%);
+    padding-block: .3rem;
+    .logo {
+      max-width: min(100%, 7rem);
+      aspect-ratio: 1/.5;
+      object-fit: contain;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: left;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+  }
+}

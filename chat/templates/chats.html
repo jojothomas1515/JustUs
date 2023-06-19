@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('chat.static', filename='css/chats.css') }}">
+    <title>JustUs Chat</title>
+</head>
+<body>
+<header><img class="logo" src="{{ url_for('static', filename='logos/justus-logo-bnb.png') }}" alt="Logo">
+    <h1>Chats</h1></header>
+<main>
+    <div class="chats-con">
+        <div>
+            chats
+        </div>
+    </div>
+    <div class="messages-con">
+        <div class="message-info">
+            info
+        </div>
+        <div class="messages">
+            this is the messages con
+        </div>
+        <div class="message-input-con">
+            <input type="text" id="message-input">
+            <input type="button" value="send">
+        </div>
+    </div>
+</main>
+</body>
+</html>

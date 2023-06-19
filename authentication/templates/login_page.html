@@ -18,7 +18,7 @@
         </div>
         {% if get_flashed_messages() %}
             <p class="error">
-                {{ get_flashed_messages(True,'error')[0][1] }}
+                {{ get_flashed_messages()[0] }}
             </p>
         {% endif %}
         <p class="signup_login">Don't have an account? <a
