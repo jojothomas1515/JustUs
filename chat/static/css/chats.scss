@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+img {
+  width: 100%;
+}
+
 body {
   background-image: linear-gradient(#00264d, #d18b8d);
   background-size: contain;
@@ -12,12 +16,14 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-inline: 1%;
+
 
   header {
     background-color: rgba(white, .8);
-    margin-inline:1%;
     margin-top: min(1rem, 1%);
     padding-block: .3rem;
+
     .logo {
       max-width: min(100%, 7rem);
       aspect-ratio: 1/.5;
@@ -30,6 +36,139 @@ body {
 
     h1 {
       text-align: center;
+    }
+
+  }
+}
+
+main {
+  display: flex;
+  gap: max(2%, 1rem);
+  height: 80dvh;
+  width: 100%;
+  margin-top: 10px;
+
+  .chats-con {
+    background-color: rgba(white, .6);
+    height: 100%;
+    width: max(360px, 50%);
+
+    .chats-menu {
+      background-color: #00264d;
+      color: white;
+      padding: .5rem;
+      height: 3rem;
+    }
+
+    .recent-chats {
+      padding: .5rem;
+
+    }
+
+  }
+
+  .messages-con {
+    background-color: rgba(white, .6);
+    height: 100%;
+    width: 100%;
+
+    .friend-profile-info-menu {
+      background-color: #00264d;
+      color: white;
+      padding-inline: .5rem;
+      height: 3rem;
+      display: flex;
+      padding-left: 1rem;
+      justify-content: space-between;
+
+      .profile-info {
+        display: flex;
+        align-items: center;
+
+        .profile-image-con {
+          width: 50px;
+
+          img {
+            object-fit: contain;
+          }
+        }
+      }
+      .rtc-menu {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        button {
+          font-size: 1.5rem;
+          background-color: transparent;
+          color: white;
+          border:none;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .messages {
+      display: flex;
+      flex-direction: column;
+      gap: .6em;
+      padding: .3rem;
+      height: 85%;
+
+      .message {
+        max-width: 360px;
+        width: max-content;
+        border-radius: 50px;
+        background-color: black;
+        color: white;
+        padding: .4rem;
+      }
+
+      .me {
+        align-self: end;
+        background-color: darken(#d18b8d, 10);
+      }
+
+      .friend-message {
+        align-self: start;
+        background-color: #00264d;
+
+      }
+
+    }
+
+    .message-input-con {
+      max-width: 100%;
+      margin-inline: .5rem;
+      border-radius: 50px;
+      background-color: white;
+      height: 3rem;
+      display: flex;
+      padding: .3rem;
+      padding-inline: .9rem;
+      gap: 1rem;
+      box-shadow: 0 0 10px rgba(black, .4);
+
+
+      #message-input {
+        width: 100%;
+        border: none;
+        outline: none;
+
+      }
+
+      #send {
+        width: 90px;
+
+        background-color: #00264d;
+        border-radius: 50px;
+        color: white;
+        outline: none;
+        border: transparent;
+        margin-block: .2rem;
+        box-shadow: 0 0 10px rgba(black, .4);
+
+      }
+
     }
 
   }

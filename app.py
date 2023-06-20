@@ -12,6 +12,7 @@ from models.user import User
 
 login_manager = LoginManager()
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 login_manager.init_app(app)
 login_manager.login_view = 'authentication.login_page'
 
