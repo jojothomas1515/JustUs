@@ -5,8 +5,8 @@ import enum
 
 from sqlalchemy import Column, String, Date, ForeignKey, Enum
 
-from base_model import Base
-from base_model import BaseModel
+from models.base_model import Base
+from models.base_model import BaseModel
 
 class FriendshipStatus(enum.Enum):
     """Friend request status"""

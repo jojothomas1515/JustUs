@@ -6,7 +6,7 @@ import os
 from flask import Flask, redirect
 from flask_login import LoginManager
 
-from authentication import auth_views
+from user import auth_views, users_views
 from chat import chat_views, socketio
 from models.user import User
 
@@ -14,7 +14,7 @@ login_manager = LoginManager()
 app = Flask(__name__)
 socketio.init_app(app)
 login_manager.init_app(app)
-login_manager.login_view = 'authentication.login_page'
+login_manager.login_view = 'user.login_page'
 
 
 # todo: fix things
@@ -33,6 +33,7 @@ def load_user(user_id: str):
 app.permanent_session_lifetime = dt.timedelta(days=7)
 app.secret_key = 'BAD_SECRET_KEY'
 app.register_blueprint(auth_views)
+app.register_blueprint(users_views)
 app.register_blueprint(chat_views)
 
 

@@ -7,7 +7,7 @@ from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from authentication import auth_views
+from user import auth_views
 from models.user import User
 
 
@@ -72,7 +72,7 @@ def signup_page():
         user = User(first_name=first_name, last_name=last_name, middle_name=middle_name, email=email,
                     password=generate_password_hash(password=password))
         user.save()
-        return redirect(url_for(endpoint='authentication.login_page'))
+        return redirect(url_for(endpoint='user.login_page'))
 
     return render_template('signup_page.html')
 

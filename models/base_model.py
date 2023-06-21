@@ -46,8 +46,14 @@ class BaseModel:
     def all(cls):
         """Get all of the class object in the database"""
         return sess.query(cls).all()
+    def to_dict(self):
+        """convert the object attributes to a dict excluding the password hash"""
+        info: dict = self.__dict__.copy()
+        info.pop("_sa_instance_state", None)
+        info.pop("password", None)
+        return info
     def __str__(self):
         """String representation."""
-        info: dict = self.__dict__
+        info: dict = self.__dict__.copy()
         info.pop("_sa_instance_state")
         return (str(info))

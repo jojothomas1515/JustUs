@@ -22,7 +22,6 @@ body header {
   background-color: rgba(255, 255, 255, 0.8);
   margin-top: min(1rem, 1%);
   padding-block: 0.3rem;
-  display: none;
 }
 body header .logo {
   max-width: min(100%, 7rem);
@@ -48,7 +47,6 @@ main .chats-con {
   background-color: rgba(255, 255, 255, 0.6);
   height: 100%;
   width: max(360px, 50%);
-  display: none;
 }
 main .chats-con .chats-menu {
   background-color: #00264d;
@@ -65,6 +63,11 @@ main .messages-con {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+@media screen and (max-width: 600px) {
+  main .messages-con {
+    height: 90vh;
+  }
 }
 main .messages-con .friend-profile-info-menu {
   background-color: #00264d;

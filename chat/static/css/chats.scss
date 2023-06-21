@@ -23,7 +23,6 @@ body {
     background-color: rgba(white, .8);
     margin-top: min(1rem, 1%);
     padding-block: .3rem;
-    display: none;
 
     .logo {
       max-width: min(100%, 7rem);
@@ -53,8 +52,8 @@ main {
     background-color: rgba(white, .6);
     height: 100%;
     width: max(360px, 50%);
-    // todo
-    display: none;
+    //// todo
+    //display: none;
 
     .chats-menu {
       background-color: #00264d;
@@ -77,9 +76,9 @@ main {
     display: flex;
     flex-direction: column;
 
-    //@media screen and (max-width: 600px){
-    //  height: 90vh;
-    //}
+    @media screen and (max-width: 600px){
+      height: 90vh;
+    }
 
     .friend-profile-info-menu {
       background-color: #00264d;

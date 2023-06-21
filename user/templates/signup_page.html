@@ -24,7 +24,7 @@
                 class='show-password fa fa-eye'></i></div>
         <div class="remember-forget">
             {#            <label><input type="checkbox" name="remember_me" id="remember"> Remember Me</label>#}
-            {#            <a href="{{ url_for('authentication.password_reset') }}">Forgot Password?</a>#}
+            {#            <a href="{{ url_for('user.password_reset') }}">Forgot Password?</a>#}
         </div>
         {% if get_flashed_messages() %}
             <p class="error">
@@ -32,7 +32,7 @@
             </p>
         {% endif %}
         <p class="signup_login">already have an account? <a
-                href="{{ url_for('authentication.login_page') }}"><em>Login</em></a>
+                href="{{ url_for('user.login_page') }}"><em>Login</em></a>
         </p>
 
         <input id="login" type="submit" value="Sign Up">

@@ -10,4 +10,4 @@ chat_views = Blueprint('chat', __name__,
                        static_folder='static',
                        static_url_path='/')
 
-from chat.chats import *
+from chat.views import *
