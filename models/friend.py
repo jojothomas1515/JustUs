@@ -23,4 +23,4 @@ class Friend(Base, BaseModel):
     requester_id = Column(String(50), ForeignKey('users.id'), nullable=False, primary_key=True)
     requested_id = Column(String(50), ForeignKey('users.id'), nullable=False, primary_key=True)
     status = Column(Enum(FriendshipStatus, length=20), nullable=False)
-    date_of_request = Column(Date, nullable=False)
+    date = Column(Date, nullable=False)

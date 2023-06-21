@@ -25,7 +25,7 @@ create table friends
     requester_id    VARCHAR(50) NOT NULL,
     requested_id    VARCHAR(50) NOT NULL,
     status          VARCHAR(20) CHECK ( status = 'pending' or status = 'accepted' or status = 'rejected'),
-    date_of_request DATE        NOT NULL,
+    date DATE        NOT NULL,
     PRIMARY KEY (requester_id, requested_id),
     constraint fk_requester FOREIGN KEY (requester_id) REFERENCES users (id),
     constraint fk_requested FOREIGN KEY (requested_id) REFERENCES users (id)

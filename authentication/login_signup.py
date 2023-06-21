@@ -24,13 +24,14 @@ def login_page():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        remember = request.form.get('login') is True
+        remember = request.form.get('remember-me')
 
         user: User = User.get('email', email)
         if not user:
             flash("Email not associated with any account", "error")
             return render_template('login_page.html')
         if check_password_hash(user.password, password):
+            print(remember)
             if login_user(user=user, remember=remember, duration=dt.timedelta(days=7)):
                 return redirect(url_for("chat.chats_page"))
             print(login_user(user=user, remember=remember, duration=dt.timedelta(days=7)))

@@ -13,7 +13,7 @@
                                                                      placeholder="Password"> <i
                 class='show-password fa fa-eye'></i></div>
         <div class="remember-forget">
-            <label><input type="checkbox" name="remember_me" id="remember"> Remember Me</label>
+            <label><input type="checkbox" name="remember-me" id="remember"> Remember Me</label>
             <a href="{{ url_for('authentication.password_reset') }}">Forgot Password?</a>
         </div>
         {% if get_flashed_messages() %}

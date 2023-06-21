@@ -23,6 +23,7 @@ body {
     background-color: rgba(white, .8);
     margin-top: min(1rem, 1%);
     padding-block: .3rem;
+    display: none;
 
     .logo {
       max-width: min(100%, 7rem);
@@ -52,6 +53,8 @@ main {
     background-color: rgba(white, .6);
     height: 100%;
     width: max(360px, 50%);
+    // todo
+    display: none;
 
     .chats-menu {
       background-color: #00264d;
@@ -71,6 +74,12 @@ main {
     background-color: rgba(white, .6);
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    //@media screen and (max-width: 600px){
+    //  height: 90vh;
+    //}
 
     .friend-profile-info-menu {
       background-color: #00264d;
@@ -93,15 +102,17 @@ main {
           }
         }
       }
+
       .rtc-menu {
         display: flex;
         gap: 1rem;
         align-items: center;
+
         button {
           font-size: 1.5rem;
           background-color: transparent;
           color: white;
-          border:none;
+          border: none;
           cursor: pointer;
         }
       }
@@ -111,20 +122,22 @@ main {
       display: flex;
       flex-direction: column;
       gap: .6em;
-      padding: .3rem;
       height: 85%;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      padding: .3rem .3rem 1rem;
+
 
       .message {
-        max-width: 360px;
-        width: max-content;
-        border-radius: 50px;
+        max-width: 80%;
+        border-radius: 10px;
         background-color: black;
         color: white;
-        padding: .4rem;
+        padding: .8rem;
       }
 
       .me {
-        align-self: end;
+        align-self: flex-end;
         background-color: darken(#d18b8d, 10);
       }
 
@@ -147,6 +160,7 @@ main {
       padding-inline: .9rem;
       gap: 1rem;
       box-shadow: 0 0 10px rgba(black, .4);
+      margin-bottom: 1rem;
 
 
       #message-input {

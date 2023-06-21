@@ -22,6 +22,7 @@ body header {
   background-color: rgba(255, 255, 255, 0.8);
   margin-top: min(1rem, 1%);
   padding-block: 0.3rem;
+  display: none;
 }
 body header .logo {
   max-width: min(100%, 7rem);
@@ -47,6 +48,7 @@ main .chats-con {
   background-color: rgba(255, 255, 255, 0.6);
   height: 100%;
   width: max(360px, 50%);
+  display: none;
 }
 main .chats-con .chats-menu {
   background-color: #00264d;
@@ -61,6 +63,8 @@ main .messages-con {
   background-color: rgba(255, 255, 255, 0.6);
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 main .messages-con .friend-profile-info-menu {
   background-color: #00264d;
@@ -97,19 +101,20 @@ main .messages-con .messages {
   display: flex;
   flex-direction: column;
   gap: 0.6em;
-  padding: 0.3rem;
   height: 85%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.3rem 0.3rem 1rem;
 }
 main .messages-con .messages .message {
-  max-width: 360px;
-  width: max-content;
-  border-radius: 50px;
+  max-width: 80%;
+  border-radius: 10px;
   background-color: black;
   color: white;
-  padding: 0.4rem;
+  padding: 0.8rem;
 }
 main .messages-con .messages .me {
-  align-self: end;
+  align-self: flex-end;
   background-color: #c36669;
 }
 main .messages-con .messages .friend-message {
@@ -127,6 +132,7 @@ main .messages-con .message-input-con {
   padding-inline: 0.9rem;
   gap: 1rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1rem;
 }
 main .messages-con .message-input-con #message-input {
   width: 100%;
