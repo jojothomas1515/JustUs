@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.2/socket.io.js"
+            integrity="sha512-jMNwWSmjje4fjYut9MBGKXw5FZA6D67NHAuC9szpjbbjg51KefquNfvn4DalCbGfkcv/jHsHnPo1o47+8u4biA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="{{ url_for('chat.static', filename='css/chats.css') }}">
+    <script src="{{ url_for('chat.static', filename='scripts/chats.js') }}" defer></script>
+
     <title>JustUs Chat</title>
 </head>
 <body>

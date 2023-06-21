@@ -7,15 +7,14 @@ from flask import Flask, redirect
 from flask_login import LoginManager
 
 from authentication import auth_views
-from chat import chat_views
+from chat import chat_views, socketio
 from models.user import User
 
 login_manager = LoginManager()
 app = Flask(__name__)
-app.config['TEMPLATES_AUTO_RELOAD'] = True
+socketio.init_app(app)
 login_manager.init_app(app)
 login_manager.login_view = 'authentication.login_page'
-
 
 
 # todo: fix things
@@ -45,4 +44,4 @@ def index():
 
 print(os.getenv('JUSTUS_USER', None))
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
+    socketio.run(app, host="0.0.0.0", port=80, debug=True)
