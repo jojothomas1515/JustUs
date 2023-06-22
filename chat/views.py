@@ -4,6 +4,7 @@ from flask import render_template, request
 
 from flask_login import login_required, current_user
 from chat import chat_views, socketio
+from flask_socketio import emit
 import json
 
 user_id_to_sid = {}
@@ -22,17 +23,15 @@ def connect():
     if current_user.is_authenticated:
         user = current_user
         user_id_to_sid[f'{user.id}'] = request.sid
-        print(user_id_to_sid)
-
     else:
         return False
 
 @socketio.on('message')
 def message(data):
     """Message event"""
-    user = current_user
-    print(user)
-    print(json.loads(data)['message'])
+    data = json.loads(data)
+    if data['id'] is not None:
+        emit("message", json.dumps({"message": data['message']}), room=user_id_to_sid[data['id']])
 
 
 
@@ -40,5 +39,4 @@ def message(data):
 def disconnect():
     """When client disconnect it removes the sid relation."""
     user = current_user
-    print()
     user_id_to_sid.pop(f'{user.id}')

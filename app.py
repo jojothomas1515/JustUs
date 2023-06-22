@@ -14,7 +14,7 @@ login_manager = LoginManager()
 app = Flask(__name__)
 socketio.init_app(app)
 login_manager.init_app(app)
-login_manager.login_view = 'user.login_page'
+login_manager.login_view = 'auth.login_page'
 
 
 # todo: fix things

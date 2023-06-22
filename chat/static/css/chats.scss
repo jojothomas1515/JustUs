@@ -60,6 +60,10 @@ main {
       color: white;
       padding: .5rem;
       height: 3rem;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .recent-chats {
@@ -184,5 +188,36 @@ main {
 
     }
 
+  }
+}
+
+
+// todo
+
+.new-convo-modal {
+
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 80vh;
+  background-color: rgba(#00264d, .8);
+  top:0;
+  width: 340px;
+  padding: 2rem;
+  .close-btn {
+    position: absolute;
+    top:1rem;
+    right: 1rem;
+  }
+  .friends {
+    background-color: #d18b8d;
+    padding:.3rem;
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 10px black;
+    cursor:pointer;
+    h4 {
+      color:white;
+    }
   }
 }

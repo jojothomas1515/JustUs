@@ -72,7 +72,7 @@ def signup_page():
         user = User(first_name=first_name, last_name=last_name, middle_name=middle_name, email=email,
                     password=generate_password_hash(password=password))
         user.save()
-        return redirect(url_for(endpoint='user.login_page'))
+        return redirect(url_for(endpoint='auth.login_page'))
 
     return render_template('signup_page.html')
 

@@ -14,8 +14,8 @@ import json
 def all_friends():
     """Get all friends."""
     user: User = current_user
-    friends: list = user.friends_req
-    friends.extend(user.friends_got)
-    friends = list(map(lambda x: x.to_dict(), friends))
-
-    return jsonify({'status': 'ok'}), 200
+    if user.is_authenticated:
+        data = user.friends
+        return jsonify(data), 200
+    else:
+        return jsonify({'error': 'unauthenticated users'}), 401

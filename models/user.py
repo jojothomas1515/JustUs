@@ -24,8 +24,13 @@ class User(BaseModel, Base):
     password = Column(String(200), nullable=False)
     is_active = Column(Boolean)
 
-    friends_got = relationship("User", secondary="friends", foreign_keys=Friend.requested_id)
-    friends_req = relationship("User", secondary="friends", foreign_keys=Friend.requester_id)
+    @property
+    def friends(self):
+        """get all user friends"""
+        res = []
+        res.extend(list(map(lambda f: {"status": f.status.value, "data": f.friend2.to_dict()}, self.friend1)))
+        res.extend(list(map(lambda f: {"status": f.status.value, "data": f.friend1.to_dict()}, self.friend2)))
+        return res
 
     def get_id(self):
         """For Flask Login to get the user id
@@ -38,9 +43,13 @@ class User(BaseModel, Base):
 
     def to_dict(self):
         res = super().to_dict()
-        res.pop("friends_got")
-        res.pop("friends_req")
+        try:
+            res.pop('friend1')
+            res.pop('friend2')
+        except KeyError:
+            pass
         return res
+
     @property
     def is_authenticated(self):
         """Check is user is authenticated

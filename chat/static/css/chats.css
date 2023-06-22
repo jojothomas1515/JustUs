@@ -53,6 +53,9 @@ main .chats-con .chats-menu {
   color: white;
   padding: 0.5rem;
   height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 main .chats-con .recent-chats {
   padding: 0.5rem;
@@ -151,6 +154,33 @@ main .messages-con .message-input-con #send {
   border: transparent;
   margin-block: 0.2rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.new-convo-modal {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 80vh;
+  background-color: rgba(0, 38, 77, 0.8);
+  top: 0;
+  width: 340px;
+  padding: 2rem;
+}
+.new-convo-modal .close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.new-convo-modal .friends {
+  background-color: #d18b8d;
+  padding: 0.3rem;
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 10px black;
+  cursor: pointer;
+}
+.new-convo-modal .friends h4 {
+  color: white;
 }
 
 /*# sourceMappingURL=chats.css.map */
