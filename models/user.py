@@ -1,10 +1,9 @@
 #!/user/bin/env python
 """User model."""
 
-from sqlalchemy import Column, String, Date, Boolean, ForeignKey
-from sqlalchemy.orm import relationship, Mapped
+from sqlalchemy import Column, String, Date, Boolean
+
 from models.base_model import Base, BaseModel
-from models.friend import Friend
 
 
 class User(BaseModel, Base):

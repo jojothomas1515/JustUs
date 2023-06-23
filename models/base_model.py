@@ -42,16 +42,29 @@ class BaseModel:
             User
         """
         return sess.query(cls).filter(eval(f'cls.{key}') == value).first()
+
+    @classmethod
+    def filter(cls, *filters):
+        """Filter with the passed conditions"""
+        return sess.query(cls).filter(*filters).all()
+
+    @classmethod
+    def filter_one(cls, *filters):
+        """Filter with the passed conditions"""
+        return sess.query(cls).filter(*filters).first()
+
     @classmethod
     def all(cls):
         """Get all of the class object in the database"""
         return sess.query(cls).all()
+
     def to_dict(self):
         """convert the object attributes to a dict excluding the password hash"""
         info: dict = self.__dict__.copy()
         info.pop("_sa_instance_state", None)
         info.pop("password", None)
         return info
+
     def __str__(self):
         """String representation."""
         info: dict = self.__dict__.copy()

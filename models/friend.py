@@ -8,6 +8,7 @@ from sqlalchemy.orm import relationship
 
 from models.base_model import Base
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FriendshipStatus(enum.Enum):
@@ -21,7 +22,6 @@ class Friend(Base, BaseModel):
     """Class to manipulate messages table."""
 
     __tablename__ = "friends"
-
     requester_id = Column(String(50), ForeignKey('users.id'), nullable=False, primary_key=True)
     requested_id = Column(String(50), ForeignKey('users.id'), nullable=False, primary_key=True)
     status = Column(Enum(FriendshipStatus, length=20), nullable=False)
