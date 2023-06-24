@@ -4,6 +4,7 @@
 from sqlalchemy import Column, String, Date, Boolean
 
 from models.base_model import Base, BaseModel
+from models.message import Message
 
 
 class User(BaseModel, Base):
@@ -30,6 +31,17 @@ class User(BaseModel, Base):
         res.extend(list(map(lambda f: {"status": f.status.value, "data": f.friend2.to_dict()}, self.friend1)))
         res.extend(list(map(lambda f: {"status": f.status.value, "data": f.friend1.to_dict()}, self.friend2)))
         return res
+
+    def messages_with(self, user_id: str):
+        data = Message.filter(((Message.sender_id == self.id) & (Message.receiver_id == user_id)) | (
+                (Message.sender_id == user_id) & (Message.receiver_id == self.id)))
+        messages = list(
+            map(
+                lambda message: message.to_dict(),
+                data
+            )
+        )
+        return messages
 
     def get_id(self):
         """For Flask Login to get the user id

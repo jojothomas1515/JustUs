@@ -6,8 +6,8 @@ import os
 from flask import Flask, redirect
 from flask_login import LoginManager
 
-from user import auth_views, users_views
-from chat import chat_views, socketio
+from main import auth_views, users_views
+from main import chat_views, socketio
 from models.user import User
 
 login_manager = LoginManager()

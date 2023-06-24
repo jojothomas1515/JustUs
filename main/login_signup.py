@@ -7,7 +7,7 @@ from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from user import auth_views
+from main import auth_views
 from models.user import User
 
 

@@ -27,13 +27,13 @@ create table friends
     status          VARCHAR(20) CHECK ( status = 'pending' or status = 'accepted' or status = 'rejected'),
     date DATE        NOT NULL,
     PRIMARY KEY (requester_id, requested_id),
-    constraint fk_requester FOREIGN KEY (requester_id) REFERENCES users (id),
-    constraint fk_requested FOREIGN KEY (requested_id) REFERENCES users (id)
+    constraint fk_requester FOREIGN KEY (requester_id) REFERENCES users (id) ON DELETE CASCADE ,
+    constraint fk_requested FOREIGN KEY (requested_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 create table messages
 (
-    id          BIGSERIAL PRIMARY KEY,
+    id          VARCHAR(50) PRIMARY KEY,
     sender_id   VARCHAR(50) NOT NULL,
     receiver_id VARCHAR(50) NOT NULL,
     message     TEXT,
