@@ -54,6 +54,7 @@ newConvoBtn.addEventListener("click", async () => {
         friends.addEventListener('click', () => {
             friendProf.setAttribute("data-userId", item.data.id);
             friendProf.lastElementChild.textContent = item.data.first_name.concat(" ", item.data.last_name);
+            setMessages();
             closeBtn.click();
         });
         friends.className = 'friends';
@@ -62,3 +63,20 @@ newConvoBtn.addEventListener("click", async () => {
     });
     document.querySelector(".chats-menu").appendChild(modal);
 });
+async function setMessages() {
+    messagesBox.innerHTML = "";
+    const friend_id = friendProf.getAttribute("data-userId");
+    const response = await fetch(`chats/messages/${friend_id}`);
+    const messages = await response.json();
+    messages.forEach((mesg) => {
+        const message = document.createElement("div");
+        message.className = "message";
+        if (friend_id == mesg.sender_id)
+            message.classList.add("friend-message");
+        else
+            message.classList.add("me");
+        message.textContent = mesg.message;
+        messagesBox.appendChild(message);
+    });
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+}

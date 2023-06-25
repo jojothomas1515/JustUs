@@ -1,18 +1,3 @@
-*, *::after, *::before {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-image: linear-gradient(#00264d, #d18b8d);
-  background-size: contain;
-  background-attachment: fixed;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
 body .logo {
   max-width: min(100%, 25rem);
   aspect-ratio: 1/0.8;
@@ -143,4 +128,4 @@ form .error {
   width: 100%;
 }
 
-/*# sourceMappingURL=authbase.css.map */
+/*# sourceMappingURL=auth.css.map */

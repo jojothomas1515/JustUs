@@ -36,11 +36,8 @@ def add_friend(user_id: str):
         return jsonify({"error": "User Not found"}), 404
     if user_id == user.id:
         return jsonify({"error": "Cannot send friend request to yourself"}), 400
-    friend = Friend.filter_one(
-        ((Friend.requester_id == user.id) &
-         (Friend.requested_id == user_id)) |
-        ((Friend.requester_id == user_id) &
-         (Friend.requested_id == user.id)))
+    friend = Friend.filter_one(((Friend.requester_id == user.id) & (Friend.requested_id == user_id)) | (
+            (Friend.requester_id == user_id) & (Friend.requested_id == user.id)))
     if friend:
         if friend.status.value == "accepted":
             return jsonify({"error": "You are already friends with this user "}), 400
@@ -48,9 +45,7 @@ def add_friend(user_id: str):
             return jsonify({"error": "You have a pending friend requested with this user "}), 400
         elif friend.status.value == "rejected":
             return jsonify({"error": "You cannot send this user a friend request"}), 400
-    friend = Friend(requester_id=user.id,
-                    requested_id=user_id,
-                    status=FriendshipStatus.pending, )
+    friend = Friend(requester_id=user.id, requested_id=user_id, status=FriendshipStatus.pending, )
     friend.save()
     return jsonify(friend.to_dict()), 201
 
@@ -58,15 +53,14 @@ def add_friend(user_id: str):
 @users_views.route("/friends/<string:user_id>", strict_slashes=False, methods=["POST"])
 def accept_friend_request(user_id: str):
     """Accept a friend request."""
-    user = User = current_user
+    user: User = current_user
     if not user.is_authenticated:
         return jsonify({'error': 'unauthenticated user'}), 401
     if not User.get('id', user_id):
         return jsonify({"error": "User Not found"}), 404
     if user_id == user.id:
         return jsonify({"error": "Bad request"}), 400
-    friend = Friend.filter_one((Friend.requester_id == user_id) &
-                               (Friend.requested_id == user.id))
+    friend = Friend.filter_one((Friend.requester_id == user_id) & (Friend.requested_id == user.id))
     if friend:
         if friend.status.value == "accepted":
             return jsonify({"error": "You are already friends with this user "}), 400
@@ -88,6 +82,16 @@ user_id_to_sid = {}
 def chats_page():
     """View for chats."""
     return render_template("chats.html")
+
+
+@chat_views.route("/messages/<string:user_id>", strict_slashes=False, methods=["GET"])
+def chat_message(user_id):
+    """api for messages."""
+    user: User = current_user
+    if not user.is_authenticated:
+        return jsonify({'error': 'unauthenticated user'}), 401
+    messages = user.messages_with(user_id)
+    return jsonify(messages), 200
 
 
 @socketio.on('connect')

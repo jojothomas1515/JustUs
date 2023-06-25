@@ -1,8 +1,14 @@
-{% extends "authbase.html" %}
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('user.static', filename="css/auth.css") }}">
+    <script src="{{ url_for('user.static', filename="scripts/auth.js") }}" defer></script>
+{% endblock %}
 {% block title %}
     <title>JustUs Login</title>
 {% endblock %}
 {% block content %}
+    <img class='logo' src="{{ url_for('user.static', filename='images/logos/justus-logo-tbc.png') }}">
+
     <form method="post" id="signup-form">
         <div class="user-icon-con">
             <i class="fa fa-user-circle fa-5x"></i>

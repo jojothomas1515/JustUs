@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=no">
+{% extends 'base.html' %}
+{% block head %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.2/socket.io.js"
             integrity="sha512-jMNwWSmjje4fjYut9MBGKXw5FZA6D67NHAuC9szpjbbjg51KefquNfvn4DalCbGfkcv/jHsHnPo1o47+8u4biA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="{{ url_for('chat.static', filename='css/chats.css') }}">
     <script src="{{ url_for('chat.static', filename='scripts/chats.js') }}" defer></script>
-
+{% endblock %}
+{% block title %}
     <title>JustUs Chat</title>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
 <header><img class="logo" src="{{ url_for('static', filename='logos/justus-logo-bnb.png') }}" alt="Logo">
     <h1>Chats</h1></header>
 <main>
@@ -39,33 +38,7 @@
             </div>
         </div>
         <div class="messages">
-            <div class="message me">
-                dummy message
-            </div>
-            <div class="message friend-message">
-                dummy message
-            </div>
-            <div class="message friend-message">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam deleniti dolores et fugiat in itaque
-                porro quod reiciendis vitae voluptatem
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aperiam maiores nam tempora. Ab commodi
-                consequuntur corporis cupiditate dicta dignissimos distinctio dolor exercitationem illo incidunt ipsa
-                iste maxime mollitia numquam quas quod repellendus reprehenderit tenetur, totam vitae. Amet asperiores
-                autem eligendi, excepturi reiciendis reprehenderit suscipit vero voluptate voluptatum! Assumenda cumque
-                eligendi expedita hic nemo odio possimus quas vitae? Ab accusamus alias consequuntur corporis deleniti
-                dolor explicabo fuga impedit ipsa iure iusto laudantium minima modi necessitatibus neque nisi nobis,
-                odit quae saepe sint suscipit vero voluptatibus! Atque dolorum est repudiandae voluptas.
-            </div>
-            <div class="message me">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam cumque debitis distinctio doloremque
-                eligendi ex hic illo inventore laudantium magni non omnis pariatur possimus quibusdam quisquam quod
-                reiciendis similique soluta velit, voluptatem! Ad labore molestias reiciendis! Cum dolorum natus
-                quibusdam quisquam tenetur. Eius natus, numquam odit quaerat sed sit voluptas voluptatibus? Adipisci
-                assumenda atque beatae cupiditate dignissimos distinctio dolorem, dolorum exercitationem illum impedit
-                laborum magni molestias obcaecati placeat porro quae quaerat qui repellendus voluptate voluptatibus.
-                Eaque eligendi eos ex facilis repellendus sapiente. Accusamus consectetur dolorem esse et ex hic iste
-                odit perspiciatis ratione repellat repellendus rerum, sit vero voluptatem voluptatibus.
-            </div>
+
         </div>
         <div class="message-input-con">
             <input type="text" id="message-input">
@@ -73,5 +46,4 @@
         </div>
     </div>
 </main>
-</body>
-</html>
+{% endblock %}

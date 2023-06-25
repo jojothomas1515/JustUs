@@ -1,22 +1,4 @@
-*, *::after, *::before {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-img {
-  width: 100%;
-}
-
 body {
-  background-image: linear-gradient(#00264d, #d18b8d);
-  background-size: contain;
-  background-attachment: fixed;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding-inline: 1%;
 
 
   header {
