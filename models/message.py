@@ -12,8 +12,8 @@ class Message(BaseModel, Base):
 
     __tablename__ = "messages"
     id = Column(String(50), primary_key=True)
-    sender_id = Column(String(50), ForeignKey('users.id'), nullable=False)
-    receiver_id = Column(String(50), ForeignKey('users.id'), nullable=False)
+    sender_id = Column(String(50), ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    receiver_id = Column(String(50), ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
     message = Column(Text)
     timestamp = Column(DateTime, nullable=False, default=datetime.datetime.now())
 

@@ -3,10 +3,10 @@
 import datetime as dt
 import os
 
-from flask import Flask, redirect
+from flask import Flask
 from flask_login import LoginManager
 
-from main import auth_views, users_views
+from main import auth_views, users_views, home_views
 from main import chat_views, socketio
 from models.user import User
 
@@ -35,13 +35,7 @@ app.secret_key = 'BAD_SECRET_KEY'
 app.register_blueprint(auth_views)
 app.register_blueprint(users_views)
 app.register_blueprint(chat_views)
-
-
-@app.route("/", strict_slashes=True)
-def index():
-    """This route redirect to chat"""
-    return redirect('/chats')
-
+app.register_blueprint(home_views)
 
 print(os.getenv('JUSTUS_USER', None))
 if __name__ == '__main__':

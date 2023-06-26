@@ -1,0 +1,107 @@
+body header {
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-top: min(1rem, 1%);
+  padding-block: 0.3rem;
+}
+body header .logo {
+  max-width: min(100%, 7rem);
+  aspect-ratio: 1/0.5;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+}
+body header h1 {
+  text-align: center;
+}
+body main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 89dvh;
+  width: 100%;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+@media screen and (min-width: 1200px) {
+  body main {
+    flex-direction: row;
+  }
+}
+body main > div {
+  max-width: 600px;
+  width: 100%;
+  min-width: 360px;
+  background-color: rgba(255, 255, 255, 0.7);
+  height: 100%;
+}
+body main .profile-con {
+  padding: 1rem;
+}
+body main .profile-con .profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body main .profile-con .profile img {
+  width: 100px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+}
+body main .profile-con .profile b {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #00264d;
+}
+body main .friend-lists-request {
+  padding: 1rem;
+}
+body main .friend-lists-request > div .users-con .users {
+  background-color: rgba(0, 38, 77, 0.8);
+  color: white;
+  padding: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  border-radius: 50px;
+  width: max-content;
+}
+body main .friend-lists-request > div .users-con .users img {
+  width: 40px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background-color: white;
+}
+body main .friend-lists-request > div .users-con .users button {
+  border: none;
+  outline: none;
+  font-size: 2rem;
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 0.3rem 0.6rem;
+}
+body main .friend-lists-request > div .users-con .users button.accept {
+  color: green;
+  border: 1px solid green;
+}
+body main .friend-lists-request > div .users-con .users button.accept:hover {
+  color: #00264d;
+  border-color: #00264d;
+  background-color: green;
+}
+body main .friend-lists-request > div .users-con .users button.reject {
+  color: red;
+  border: 1px solid red;
+}
+body main .friend-lists-request > div .users-con .users button.reject:hover {
+  color: #00264d;
+  border-color: #00264d;
+  background-color: red;
+}
+
+/*# sourceMappingURL=home.css.map */

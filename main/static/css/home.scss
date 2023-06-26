@@ -1,0 +1,129 @@
+body {
+  header {
+    background-color: rgba(white, .8);
+    margin-top: min(1rem, 1%);
+    padding-block: .3rem;
+
+    .logo {
+      max-width: min(100%, 7rem);
+      aspect-ratio: 1/.5;
+      object-fit: contain;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: left;
+    }
+
+    h1 {
+      text-align: center;
+    }
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 89dvh;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    @media screen and (min-width: 1200px) {
+      flex-direction: row;
+    }
+
+
+    > div {
+      max-width: 600px;
+      width: 100%;
+      min-width: 360px;
+      background-color: rgba(white, .7);
+      height: 100%;
+    }
+
+    .profile-con {
+
+      padding: 1rem;
+
+      .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 100px;
+          aspect-ratio: 1/1;
+          object-fit: cover;
+          border: 1px solid rgba(black, .7);
+          border-radius: 50%;
+        }
+
+        b {
+          font-size: 1.1rem;
+          font-style: italic;
+          color: #00264d;
+        }
+
+      }
+
+    }
+
+    .friend-lists-request {
+      padding: 1rem;
+
+      > div .users-con {
+        .users {
+          background-color: rgba(#00264d, .8);
+          color: white;
+          padding: .5rem;
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          border-radius: 50px;
+          width: max-content;
+
+          img {
+            width: 40px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid #000;
+            background-color: white;
+          }
+
+          button {
+            border: none;
+            outline: none;
+            font-size: 2rem;
+            background-color: transparent;
+            border-radius: 50%;
+            padding: .3rem .6rem;
+
+            &.accept {
+              color: green;
+              border: 1px solid green;
+
+              &:hover {
+                color: #00264d;
+                border-color: #00264d;
+                background-color: green;
+              }
+            }
+
+            &.reject {
+              color: red;
+              border: 1px solid red;
+
+              &:hover {
+                color: #00264d;
+                border-color: #00264d;
+                background-color: red;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

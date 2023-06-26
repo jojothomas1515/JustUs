@@ -7,12 +7,11 @@ auth_views = Blueprint('auth', __name__, url_prefix='/auth', template_folder='te
                        static_url_path='/')
 users_views = Blueprint('user', __name__, url_prefix='/users', template_folder='templates', static_folder='static',
                         static_url_path='/')
+home_views = Blueprint('home', __name__, url_prefix='/', template_folder='templates', static_folder='static',
+                       static_url_path='/')
 
 socketio = SocketIO()
-chat_views = Blueprint('chat', __name__,
-                       url_prefix='/chats',
-                       template_folder='templates',
-                       static_folder='static',
+chat_views = Blueprint('chat', __name__, url_prefix='/chats', template_folder='templates', static_folder='static',
                        static_url_path='/')
 
 from main.views import *

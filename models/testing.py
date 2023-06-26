@@ -37,8 +37,8 @@ from models.user import User
 user1 = User.get("email", "boomboom@gmail.com")
 user2 = User.get("email", "bsd@gmail.com")
 
-messages = sess.query(Message).filter(((Message.sender_id == user1.id) & (Message.receiver_id == user2.id))
-                                      | ((Message.sender_id == user2.id) & (Message.receiver_id == user1.id))).offset(0).limit(5).all()
+messages = sess.query(Message).filter(((Message.sender_id == user1.id) & (Message.receiver_id == user2.id)) | (
+            (Message.sender_id == user2.id) & (Message.receiver_id == user1.id))).offset(0).limit(5).all()
 for i in messages:
     print(i.message)
 

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/home.css') }}">
+    <script src="{{ url_for('home.static', filename='scripts/home.js') }}" defer></script>
+{% endblock %}
+{% block title %}<title> Justus </title> {% endblock %}
+{% block content %}
+    <header>
+        <img class="logo" src="{{ url_for('static', filename='logos/justus-logo-bnb.png') }}" alt="Logo">
+        <h1>Home</h1>
+    </header>
+    <main>
+        <div class="profile-con">
+            <div class="profile">
+                <img class="profile-pic" src="{{ url_for('home.static', filename='images/logos/justus-logo-bnb.png') }}"
+                     alt="Profile Picture">
+                {% if user %}
+                    <p><b>Name:</b>{{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}</p>
+                    <p><b>Email:</b> {{ user.email }}</p>
+                    <p><b>Bio:</b> Do hard things</p>
+                    <p><b>Friends:</b>0</p>
+                {% else %}
+                    <p><b>Name:</b>Anonymous User</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="users-con">
+            <h1> Users </h1>
+            <div class="users">
+                <div>
+                    Boom Boom
+                </div>
+            </div>
+        </div>
+        <div class="friend-lists-request">
+            <div class="requests">
+                <h1> Requests </h1>
+                <div class="users-con" id="pending-users">
+
+                </div>
+            </div>
+            <div class="friends">
+                <h1>Friends</h1>
+                <div class="users-con" id="accepted-users">
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

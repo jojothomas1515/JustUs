@@ -8,8 +8,7 @@ from flask import render_template, request
 from flask_login import login_required, current_user
 from flask_socketio import emit
 
-from main import chat_views, socketio
-from main import users_views
+from main import chat_views, socketio, users_views, home_views
 from models.friend import Friend, FriendshipStatus
 from models.message import Message
 from models.user import User
@@ -120,3 +119,10 @@ def disconnect():
     """When client disconnect it removes the sid relation."""
     user = current_user
     user_id_to_sid.pop(f'{user.id}')
+
+
+@home_views.route("/", strict_slashes=False, methods=["GET"])
+@login_required
+def home_page():
+    """View for home."""
+    return render_template("home.html", user=current_user)
