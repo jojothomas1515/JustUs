@@ -113,11 +113,12 @@ main {
 
 
       .message {
-        max-width: 80%;
+        max-width: 360px;
         border-radius: 10px;
         background-color: black;
         color: white;
         padding: .8rem;
+        word-wrap: break-word;
       }
 
       .me {

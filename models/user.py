@@ -28,19 +28,26 @@ class User(BaseModel, Base):
     def friends(self):
         """get all user friends"""
         res = []
-        res.extend(list(map(lambda f: {"status": f.status.value, "data": f.friend2.to_dict()}, self.friend1)))
-        res.extend(list(map(lambda f: {"status": f.status.value, "data": f.friend1.to_dict()}, self.friend2)))
+        res.extend(list(
+            map(lambda f: {"status": f.status.value, "requester_id": f.requester_id, "data": f.friend2.to_dict()},
+                self.friend1)))
+        res.extend(list(
+            map(lambda f: {"status": f.status.value, "requester_id": f.requester_id, "data": f.friend1.to_dict()},
+                self.friend2)))
+        return res
+
+    @property
+    def exc_friends(self):
+        """get all user friends"""
+        res = []
+        res.extend(list(map(lambda f: f.friend2, self.friend1)))
+        res.extend(list(map(lambda f: f.friend1, self.friend2)))
         return res
 
     def messages_with(self, user_id: str):
         data = Message.filter(((Message.sender_id == self.id) & (Message.receiver_id == user_id)) | (
                 (Message.sender_id == user_id) & (Message.receiver_id == self.id)))
-        messages = list(
-            map(
-                lambda message: message.to_dict(),
-                data
-            )
-        )
+        messages = list(map(lambda message: message.to_dict(), data))
         return messages
 
     def get_id(self):

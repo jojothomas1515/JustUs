@@ -1,4 +1,5 @@
 body {
+
   header {
     background-color: rgba(white, .8);
     margin-top: min(1rem, 1%);
@@ -39,6 +40,9 @@ body {
       min-width: 360px;
       background-color: rgba(white, .7);
       height: 100%;
+      box-shadow: 0 0 10px black;
+      border-radius: 10px;
+      padding: 1rem;
     }
 
     .profile-con {
@@ -68,19 +72,47 @@ body {
 
     }
 
-    .friend-lists-request {
+    .friend-lists-request, .all-users {
       padding: 1rem;
 
-      > div .users-con {
+      .users-con {
         .users {
-          background-color: rgba(#00264d, .8);
-          color: white;
-          padding: .5rem;
-          display: flex;
-          gap: 1rem;
+          color: black;
+          position: relative;
+          padding: .2rem .6rem 0;
+          //gap: 1rem;
           align-items: center;
           border-radius: 50px;
-          width: max-content;
+          //width: max-content;
+          width: 100%;
+          transition: background-color, color, 100ms ease-in-out;
+          cursor: pointer;
+
+
+          &:hover {
+            background-color: rgba(#00264d, .8);
+            color: white;
+          }
+
+          > div {
+            position: relative;
+            margin-inline: 1rem;
+            //border:1px solid red;
+            display: inline-block;
+            transform: translateY(-20%);
+            top: 50%;
+
+            p {
+              font-size: .8rem;
+              font-style: italic;
+            }
+
+            h4 {
+              font-style: normal;
+              font-size: 1rem;
+            }
+          }
+
 
           img {
             width: 40px;
@@ -89,23 +121,43 @@ body {
             border-radius: 50%;
             border: 1px solid #000;
             background-color: white;
+            display: inline-block;
           }
 
           button {
+            position: relative;
+            float: right;
             border: none;
             outline: none;
-            font-size: 2rem;
+            font-size: 1.2rem;
             background-color: transparent;
             border-radius: 50%;
-            padding: .3rem .6rem;
+            padding: .2rem .4rem;
+            margin-inline: 2px;
+            transform: translateY(10%);
+            cursor: pointer;
+
+            &.add-friend {
+              color: green;
+              border: 1px solid green;
+              padding: .4rem .4rem;
+              transition: background-color, color, 100ms ease-in-out;
+
+              &:hover {
+                color: #fff;
+                border-color: #fff;
+                background-color: green;
+              }
+            }
 
             &.accept {
               color: green;
               border: 1px solid green;
 
+
               &:hover {
-                color: #00264d;
-                border-color: #00264d;
+                color: #fff;
+                border-color: #fff;
                 background-color: green;
               }
             }
@@ -113,10 +165,11 @@ body {
             &.reject {
               color: red;
               border: 1px solid red;
+              pointer-events: visiblePainted;
 
               &:hover {
-                color: #00264d;
-                border-color: #00264d;
+                color: #fff;
+                border-color: #fff;
                 background-color: red;
               }
             }

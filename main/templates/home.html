@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('home.static', filename='css/home.css') }}">
-    <script src="{{ url_for('home.static', filename='scripts/home.js') }}" defer></script>
+    <script src="{{ url_for('home.static', filename='scripts/home.js') }}" type="module"></script>
 {% endblock %}
 {% block title %}<title> Justus </title> {% endblock %}
 {% block content %}
@@ -24,12 +24,10 @@
                 {% endif %}
             </div>
         </div>
-        <div class="users-con">
+        <div class="all-users">
             <h1> Users </h1>
-            <div class="users">
-                <div>
-                    Boom Boom
-                </div>
+            <div class="users-con" id="all-users">
+
             </div>
         </div>
         <div class="friend-lists-request">

@@ -14,6 +14,18 @@ from models.message import Message
 from models.user import User
 
 
+@users_views.route("/", strict_slashes=True, methods=["GET"])
+def all_users():
+    """Get all users"""
+    user: User = current_user
+    all_user = set(User.all())
+    all_user.discard(user)
+    all_user.difference_update(user.exc_friends)
+    all_user = list(map(lambda x: x.to_dict(), list(all_user)))
+
+    return jsonify(all_user), 200
+
+
 @users_views.route("/friends", strict_slashes=False, methods=["GET"])
 def all_friends():
     """Get all friends."""
@@ -46,10 +58,10 @@ def add_friend(user_id: str):
             return jsonify({"error": "You cannot send this user a friend request"}), 400
     friend = Friend(requester_id=user.id, requested_id=user_id, status=FriendshipStatus.pending, )
     friend.save()
-    return jsonify(friend.to_dict()), 201
+    return jsonify(success="request sent successfully"), 201
 
 
-@users_views.route("/friends/<string:user_id>", strict_slashes=False, methods=["POST"])
+@users_views.route("/friends/<string:user_id>", strict_slashes=False, methods=["PUT"])
 def accept_friend_request(user_id: str):
     """Accept a friend request."""
     user: User = current_user
@@ -68,7 +80,30 @@ def accept_friend_request(user_id: str):
 
     friend.status = FriendshipStatus.accepted
     friend.save()
-    return jsonify(friend.to_dict()), 201
+    print(friend.to_dict())
+    return jsonify(success="request accepted successfully"), 201
+
+
+@users_views.route("/friends/<string:user_id>", strict_slashes=False, methods=["DELETE"])
+def reject_friend_request(user_id: str):
+    """Reject a friend request."""
+    user: User = current_user
+    if not user.is_authenticated:
+        return jsonify({'error': 'unauthenticated user'}), 401
+    if not User.get('id', user_id):
+        return jsonify({"error": "User Not found"}), 404
+    if user_id == user.id:
+        return jsonify({"error": "Bad request"}), 400
+    friend = Friend.filter_one((Friend.requester_id == user_id) & (Friend.requested_id == user.id))
+    if friend:
+        if friend.status.value == "accepted":
+            return jsonify({"error": "You are already friends with this user "}), 400
+        elif friend.status.value == "rejected":
+            return jsonify({"error": "You already rejected this user a friend request"}), 400
+
+    friend.status = FriendshipStatus.rejected
+    friend.save()
+    return jsonify(success="request rejected successfully"), 201
 
 
 # todo: orginize
@@ -111,7 +146,9 @@ def message(data):
     data = json.loads(data)
     if data['id'] is not None:
         Message(sender_id=user.id, receiver_id=data['id'], message=data['message']).save()
-        emit("message", json.dumps({"message": data['message']}), room=user_id_to_sid[data['id']])
+        target = user_id_to_sid.get(data['id'])
+        if target:
+            emit("message", json.dumps({"message": data['message']}), room=target)
 
 
 @socketio.on('disconnect')

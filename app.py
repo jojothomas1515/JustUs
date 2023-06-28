@@ -5,7 +5,7 @@ import os
 
 from flask import Flask
 from flask_login import LoginManager
-
+from models.db import sess
 from main import auth_views, users_views, home_views
 from main import chat_views, socketio
 from models.user import User
@@ -36,6 +36,13 @@ app.register_blueprint(auth_views)
 app.register_blueprint(users_views)
 app.register_blueprint(chat_views)
 app.register_blueprint(home_views)
+
+
+@app.teardown_appcontext
+def cleanup(exception):
+    """cleanly closes the session"""
+    sess.close()
+
 
 print(os.getenv('JUSTUS_USER', None))
 if __name__ == '__main__':

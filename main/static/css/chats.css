@@ -93,11 +93,12 @@ main .messages-con .messages {
   padding: 0.3rem 0.3rem 1rem;
 }
 main .messages-con .messages .message {
-  max-width: 80%;
+  max-width: 360px;
   border-radius: 10px;
   background-color: black;
   color: white;
   padding: 0.8rem;
+  word-wrap: break-word;
 }
 main .messages-con .messages .me {
   align-self: flex-end;
