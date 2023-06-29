@@ -11,6 +11,7 @@ sio.addEventListener("message", (data: any) => {
     const message: HTMLDivElement = document.createElement("div");
     message.className = "message";
     message.classList.add("friend-message");
+    console.log(JSON.parse(data));
     message.textContent = JSON.parse(data).message;
 
     messagesBox.appendChild(message);
@@ -55,38 +56,38 @@ interface Users {
     status: string
 }
 
-newConvoBtn.addEventListener("click", async () => {
-    const modal = document.createElement("div") as HTMLDivElement;
-
-    // adding close button to the modal
-    const closeBtn = document.createElement("button");
-    closeBtn.className = "close-btn";
-    closeBtn.innerHTML = "X";
-    closeBtn.addEventListener("click", () => {
-        modal.parentElement!.removeChild(modal);
-    });
-    modal.appendChild(closeBtn);
-    modal.className = "new-convo-modal";
-
-    // getting all friends
-    const data: Array<Users> = await get_users();
-    data.forEach(item => {
-
-        const friends = document.createElement("div");
-        friends.setAttribute("data-userId", item.data.id);
-        friends.addEventListener('click', () => {
-            friendProf.setAttribute("data-userId", item.data.id);
-            friendProf.lastElementChild!.textContent = item.data.first_name.concat(" ", item.data.last_name);
-            setMessages();
-            closeBtn.click();
-        });
-        friends.className = 'friends';
-        friends.innerHTML = `<h4>${item.data.first_name} ${item.data.last_name}</h4>`;
-        modal.appendChild(friends);
-    })
-
-    document.querySelector(".chats-menu")!.appendChild(modal);
-})
+// newConvoBtn.addEventListener("click", async () => {
+//     const modal = document.createElement("div") as HTMLDivElement;
+//
+//     // adding close button to the modal
+//     const closeBtn = document.createElement("button");
+//     closeBtn.className = "close-btn";
+//     closeBtn.innerHTML = "X";
+//     closeBtn.addEventListener("click", () => {
+//         modal.parentElement!.removeChild(modal);
+//     });
+//     modal.appendChild(closeBtn);
+//     modal.className = "new-convo-modal";
+//
+//     // getting all friends
+//     const data: Array<Users> = await get_users();
+//     data.forEach(item => {
+//
+//         const friends = document.createElement("div");
+//         friends.setAttribute("data-userId", item.data.id);
+//         friends.addEventListener('click', () => {
+//             friendProf.setAttribute("data-userId", item.data.id);
+//             friendProf.lastElementChild!.textContent = item.data.first_name.concat(" ", item.data.last_name);
+//             setMessages();
+//             closeBtn.click();
+//         });
+//         friends.className = 'friends';
+//         friends.innerHTML = `<h4>${item.data.first_name} ${item.data.last_name}</h4>`;
+//         modal.appendChild(friends);
+//     })
+//
+//     document.querySelector(".chats-menu")!.appendChild(modal);
+// })
 
 interface Mesg {
     id: string,
@@ -96,10 +97,10 @@ interface Mesg {
     timestamp: string
 }
 
-async function setMessages() {
+async function setMessages(user_id?: string) {
     messagesBox.innerHTML = "";
     const friend_id = friendProf.getAttribute("data-userId")!
-    const response = await fetch(`chats/messages/${friend_id}`);
+    const response = await fetch(`/chats/messages/${user_id || friend_id}`);
     const messages = await response.json();
 
     messages.forEach((mesg: Mesg) => {
@@ -112,3 +113,4 @@ async function setMessages() {
     messagesBox.scrollTop = messagesBox.scrollHeight;
 
 }
+

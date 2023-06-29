@@ -33,7 +33,7 @@ def login_page():
         if check_password_hash(user.password, password):
             print(remember)
             if login_user(user=user, remember=remember, duration=dt.timedelta(days=7)):
-                return redirect(url_for("chat.chats_page"))
+                return redirect(url_for("user.home_page"))
             print(login_user(user=user, remember=remember, duration=dt.timedelta(days=7)))
             if not user.is_active:
                 flash("Inactive user", "error")

@@ -21,8 +21,16 @@ async function loadFriends() {
         email.textContent = user.data.email;
         infoCon.append(name, email);
         friend.append(profImg, infoCon);
-        if (user.status === "accepted")
+        if (user.status === "accepted") {
             friendsList.appendChild(friend);
+            const chat = document.createElement("button");
+            chat.addEventListener("click", () => {
+                window.location.href = `/chats/${user.data.id}`;
+            });
+            chat.className = "chat";
+            chat.innerHTML = "<i class='fa fa-comment'></i>";
+            friend.appendChild(chat);
+        }
         else if (user.status === "pending") {
             if (user.requester_id === user.data.id) {
                 const accept = document.createElement("button");

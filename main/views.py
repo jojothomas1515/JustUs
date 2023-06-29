@@ -118,6 +118,17 @@ def chats_page():
     return render_template("chats.html")
 
 
+@chat_views.route("/<string:user_id>", strict_slashes=False, methods=["GET"])
+@login_required
+def chats(user_id: str):
+    """View for chats."""
+    chat_user = User.get('id', user_id)
+    if not chat_user:
+        return jsonify({"error": "User Not found"}), 404
+    print(chat_user)
+    return render_template("chats.html", chat_user=chat_user)
+
+
 @chat_views.route("/messages/<string:user_id>", strict_slashes=False, methods=["GET"])
 def chat_message(user_id):
     """api for messages."""
@@ -148,7 +159,7 @@ def message(data):
         Message(sender_id=user.id, receiver_id=data['id'], message=data['message']).save()
         target = user_id_to_sid.get(data['id'])
         if target:
-            emit("message", json.dumps({"message": data['message']}), room=target)
+            emit("message", json.dumps({"sender": user.to_dict(), "message": data['message']}), room=target)
 
 
 @socketio.on('disconnect')
