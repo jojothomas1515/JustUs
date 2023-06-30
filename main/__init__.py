@@ -14,5 +14,6 @@ socketio = SocketIO()
 chat_views = Blueprint('chat', __name__, url_prefix='/chats', template_folder='templates', static_folder='static',
                        static_url_path='/')
 
-from main.views import *
+from main.users import *
 from main.login_signup import *
+from main.chats_events import *

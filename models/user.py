@@ -50,6 +50,8 @@ class User(BaseModel, Base):
         messages = list(map(lambda message: message.to_dict(), data))
         return messages
 
+    def recent_messages(self):
+        pass
     def get_id(self):
         """For Flask Login to get the user id
 
