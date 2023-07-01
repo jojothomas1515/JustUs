@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.2/socket.io.js"
-            integrity="sha512-jMNwWSmjje4fjYut9MBGKXw5FZA6D67NHAuC9szpjbbjg51KefquNfvn4DalCbGfkcv/jHsHnPo1o47+8u4biA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="{{ url_for('chat.static', filename='css/chats.css') }}">
     <script src="{{ url_for('chat.static', filename='scripts/chats.js') }}" defer></script>
 {% endblock %}
@@ -21,7 +18,20 @@
                 <button class="new-convo" id="new-convo"><i class="far fa-comment-alt fa-2x"></i></button>
             </div>
             <div class="recent-chats">
-                recent chats
+                {% if recent_chats %}
+                    {% for chat in recent_chats %}
+                        <a class="chat" href="/chats/{{ chat.user.id }}">
+                            <div class="profile-image-con">
+                                <img src="{{ url_for('static',filename='logos/justus-logo-tbc.png') }}"
+                                     alt="profile-image">
+                            </div>
+                            <div>
+                                <p class="chat-name">{{ chat.user.first_name}} {{ chat.user.middle_name }} {{ chat.user.last_name }}</p>
+                                <p class="chat-last-message">{{ chat.data.message | truncate(30) }}</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
         <div class="messages-con">

@@ -46,3 +46,24 @@ def disconnect():
     """When client disconnect it removes the sid relation."""
     user = current_user
     r.hdel("chat_sess", f"{user.id}")
+
+
+@socketio.on("offer")
+def say_offer(data):
+    user: User = current_user
+    data = json.loads(data)
+    # print(data)
+    if data["id"] is not None:
+        target = r.hget("chat_sess", data["id"])
+        if target:
+            emit("offer", json.dumps(data), room=target)
+
+@socketio.on("answer")
+def say_offer(data):
+    user: User = current_user
+    data = json.loads(data)
+    print(data)
+    if data["id"] is not None:
+        target = r.hget("chat_sess", data["id"])
+        if target:
+            emit("answer", json.dumps(data), room=target)

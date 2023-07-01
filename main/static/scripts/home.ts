@@ -1,24 +1,31 @@
-import {sendFriendRequest, acceptFriendRequest} from "./utilities.js";
+import {acceptFriendRequest, sendFriendRequest} from "./utilities.js";
+
+if (Notification.permission === "granted") {
+    console.log("can show notification")
+} else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(permission => {
+    }).catch(err => console.log("error occured"));
+}
+
+// @ts-ignore
+const sio = io();
+
+sio.addEventListener("message", (data: any) => {
+    const res: ReceivedMessage = JSON.parse(data);
+    const notification = new Notification(`New message from ${res.sender.email}`, {
+        body: res.message, requireInteraction: true, icon: "/static/logos/justus-logo-bowb.png",
+    });
+    notification.addEventListener("click", () => {
+        location.href = `/chats/${res.sender.id}`;
+    });
+    notification.addEventListener("close", () => {
+    });
+});
 
 const friendsList: HTMLDivElement = document.querySelector("#accepted-users") as HTMLDivElement;
 const requestsList: HTMLDivElement = document.querySelector("#pending-users") as HTMLDivElement;
 const usersList: HTMLDivElement = document.querySelector("#all-users") as HTMLDivElement;
 
-interface User {
-
-    id: string,
-    first_name: string,
-    last_name: string,
-    middle_name: string,
-    email: string,
-    date_of_birth: string | null
-}
-
-interface Friend {
-    status: string,
-    requester_id: string,
-    data: User,
-}
 
 async function loadFriends() {
     const res = await fetch("/users/friends");
@@ -40,7 +47,7 @@ async function loadFriends() {
         email.textContent = user.data.email;
         infoCon.append(name, email);
         friend.append(profImg, infoCon)
-        if (user.status === "accepted"){
+        if (user.status === "accepted") {
             friendsList.appendChild(friend);
             const chat: HTMLButtonElement = document.createElement("button");
             chat.addEventListener("click", () => {
@@ -50,7 +57,7 @@ async function loadFriends() {
             chat.innerHTML = "<i class='fa fa-comment'></i>";
             friend.appendChild(chat);
 
-        }  else if (user.status === "pending") {
+        } else if (user.status === "pending") {
             if (user.requester_id === user.data.id) {
                 const accept: HTMLButtonElement = document.createElement("button");
                 const reject: HTMLButtonElement = document.createElement("button");

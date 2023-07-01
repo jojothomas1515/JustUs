@@ -4,16 +4,37 @@ const messageInput = document.querySelector("#message-input");
 const sendBtn = document.querySelector("#send");
 const newConvoBtn = document.querySelector("#new-convo");
 const friendProf = document.querySelector(".profile-info");
+if (Notification.permission === "granted") {
+    console.log("can show notification");
+}
+else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(permission => {
+    }).catch(err => console.log("error occured"));
+}
 // @ts-ignore
 const sio = io();
 sio.addEventListener("message", (data) => {
-    const message = document.createElement("div");
-    message.className = "message";
-    message.classList.add("friend-message");
-    console.log(JSON.parse(data));
-    message.textContent = JSON.parse(data).message;
-    messagesBox.appendChild(message);
-    messagesBox.scrollTop = messagesBox.scrollHeight;
+    const res = JSON.parse(data);
+    if (res.sender.id === friendProf.getAttribute("data-userId")) {
+        const message = document.createElement("div");
+        message.className = "message";
+        message.classList.add("friend-message");
+        message.textContent = res.message;
+        messagesBox.appendChild(message);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+    else {
+        const notification = new Notification(`New message from ${res.sender.email}`, {
+            body: res.message,
+            requireInteraction: true,
+            icon: "/static/logos/justus-logo-bowb.png",
+        });
+        notification.addEventListener("click", () => {
+            location.href = `/chats/${res.sender.id}`;
+        });
+        notification.addEventListener("close", () => {
+        });
+    }
 });
 sendBtn.addEventListener('click', () => {
     const message = document.createElement("div");
@@ -36,6 +57,38 @@ async function get_users() {
     const data = await res.json();
     return data;
 }
+// newConvoBtn.addEventListener("click", async () => {
+//     const modal = document.createElement("div") as HTMLDivElement;
+//
+//     // adding close button to the modal
+//     const closeBtn = document.createElement("button");
+//     closeBtn.className = "close-btn";
+//     closeBtn.innerHTML = "X";
+//     closeBtn.addEventListener("click", () => {
+//         modal.parentElement!.removeChild(modal);
+//     });
+//     modal.appendChild(closeBtn);
+//     modal.className = "new-convo-modal";
+//
+//     // getting all friends
+//     const data: Array<Users> = await get_users();
+//     data.forEach(item => {
+//
+//         const friends = document.createElement("div");
+//         friends.setAttribute("data-userId", item.data.id);
+//         friends.addEventListener('click', () => {
+//             friendProf.setAttribute("data-userId", item.data.id);
+//             friendProf.lastElementChild!.textContent = item.data.first_name.concat(" ", item.data.last_name);
+//             setMessages();
+//             closeBtn.click();
+//         });
+//         friends.className = 'friends';
+//         friends.innerHTML = `<h4>${item.data.first_name} ${item.data.last_name}</h4>`;
+//         modal.appendChild(friends);
+//     })
+//
+//     document.querySelector(".chats-menu")!.appendChild(modal);
+// })
 async function setMessages(user_id) {
     messagesBox.innerHTML = "";
     const friend_id = friendProf.getAttribute("data-userId");

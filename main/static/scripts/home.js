@@ -1,4 +1,24 @@
-import { sendFriendRequest, acceptFriendRequest } from "./utilities.js";
+import { acceptFriendRequest, sendFriendRequest } from "./utilities.js";
+if (Notification.permission === "granted") {
+    console.log("can show notification");
+}
+else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(permission => {
+    }).catch(err => console.log("error occured"));
+}
+// @ts-ignore
+const sio = io();
+sio.addEventListener("message", (data) => {
+    const res = JSON.parse(data);
+    const notification = new Notification(`New message from ${res.sender.email}`, {
+        body: res.message, requireInteraction: true, icon: "/static/logos/justus-logo-bowb.png",
+    });
+    notification.addEventListener("click", () => {
+        location.href = `/chats/${res.sender.id}`;
+    });
+    notification.addEventListener("close", () => {
+    });
+});
 const friendsList = document.querySelector("#accepted-users");
 const requestsList = document.querySelector("#pending-users");
 const usersList = document.querySelector("#all-users");

@@ -22,6 +22,7 @@ def print_param(*one):
 
 from models.base_model import sess
 from models.message import Message
+from models.friend import Friend
 #
 # user_1 = "3afc9e6e-99ed-4a70-9c6f-b1a1a4e7b725"
 # user_2 = "744f79a2-5bab-47f1-a4d6-11d0c412c6c6"
@@ -35,11 +36,16 @@ from models.message import Message
 from models.user import User
 
 user1 = User.get("email", "boomboom@gmail.com")
-user2 = User.get("email", "bsd@gmail.com")
+# user2 = User.get("email", "bsd@gmail.com")
+#
+# for i in user1.friends:
+#     if user2.messages_with(i['data']['id']):
+#         print({"user": i, "data": user2.messages_with(i['data']['id'])[-1]})
 
-messages = sess.query(Message).filter(((Message.sender_id == user1.id) & (Message.receiver_id == user2.id)) | (
-            (Message.sender_id == user2.id) & (Message.receiver_id == user1.id))).offset(0).limit(5).all()
-for i in messages:
-    print(i.message)
+# messages = sess.query(Message).filter(((Message.sender_id == user1.id) & (Message.receiver_id == user2.id)) | (
+#             (Message.sender_id == user2.id) & (Message.receiver_id == user1.id))).all()
+# print(messages[-1])
 
 # todo: delete this file
+
+print(user1.recent_messages())

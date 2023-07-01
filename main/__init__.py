@@ -17,3 +17,5 @@ chat_views = Blueprint('chat', __name__, url_prefix='/chats', template_folder='t
 from main.users import *
 from main.login_signup import *
 from main.chats_events import *
+from main.home import *
+from main.chats import *

@@ -47,9 +47,38 @@ main {
       align-items: center;
     }
 
+    // todo: style recent chats
     .recent-chats {
       padding: .5rem;
 
+      .chat {
+        height: 3.5rem;
+        background-color: transparent;
+        display: flex;
+        gap: .5rem;
+        margin-bottom: .5rem;
+        color: black;
+        text-decoration: none;
+        padding: .2rem .5rem;
+        border-radius: 10px;
+        transition: background-color, color, 200ms ease-in-out;
+
+        &:hover {
+          background-color: rgba(#00264d, .8);
+          color: white;
+        }
+
+        .profile-image-con {
+          width: 50px;
+          border: 1px solid white;
+          border-radius: 50%;
+          background-color: #00264d;
+
+          img {
+            object-fit: contain;
+          }
+        }
+      }
     }
 
   }
@@ -61,7 +90,7 @@ main {
     display: flex;
     flex-direction: column;
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 600px) {
       height: 90vh;
     }
 
@@ -183,23 +212,26 @@ main {
   position: fixed;
   height: 80vh;
   background-color: rgba(#00264d, .8);
-  top:0;
+  top: 0;
   width: 340px;
   padding: 2rem;
+
   .close-btn {
     position: absolute;
-    top:1rem;
+    top: 1rem;
     right: 1rem;
   }
+
   .friends {
     background-color: #d18b8d;
-    padding:.3rem;
+    padding: .3rem;
     color: white;
     border-radius: 15px;
     box-shadow: 0 0 10px black;
-    cursor:pointer;
+    cursor: pointer;
+
     h4 {
-      color:white;
+      color: white;
     }
   }
 }

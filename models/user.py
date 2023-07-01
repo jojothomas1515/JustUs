@@ -49,9 +49,19 @@ class User(BaseModel, Base):
                 (Message.sender_id == user_id) & (Message.receiver_id == self.id)))
         messages = list(map(lambda message: message.to_dict(), data))
         return messages
-
     def recent_messages(self):
-        pass
+        """Get the recent messages with all friends."""
+        res = []
+        for i in self.exc_friends:
+            messages = self.messages_with(i.id)
+            if messages:
+                res.append({"user": i.to_dict(), "data": messages[-1]})
+        # return res
+        # for friend in self.friends:
+        #     if friend["status"] == "accepted":
+        #         if self.messages_with(friend["data"]["id"]):
+        #             res.append({"user": friend, "data": self.messages_with(friend["data"]["id"])[-1]})
+        return res
     def get_id(self):
         """For Flask Login to get the user id
 

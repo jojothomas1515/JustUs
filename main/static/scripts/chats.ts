@@ -4,19 +4,36 @@ const sendBtn: HTMLButtonElement = document.querySelector("#send") as HTMLButton
 const newConvoBtn: HTMLButtonElement = document.querySelector("#new-convo") as HTMLButtonElement;
 const friendProf: HTMLDivElement = document.querySelector(".profile-info") as HTMLDivElement;
 
+if (Notification.permission === "granted") {
+    console.log("can show notification")
+} else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(permission => {
+    }).catch(err => console.log("error occured"));
+}
 // @ts-ignore
 const sio = io();
 
 sio.addEventListener("message", (data: any) => {
-    const message: HTMLDivElement = document.createElement("div");
-    message.className = "message";
-    message.classList.add("friend-message");
-    console.log(JSON.parse(data));
-    message.textContent = JSON.parse(data).message;
-
-    messagesBox.appendChild(message);
-    messagesBox.scrollTop = messagesBox.scrollHeight;
-
+    const res: ReceivedMessage = JSON.parse(data);
+    if (res.sender.id === friendProf.getAttribute("data-userId")) {
+        const message: HTMLDivElement = document.createElement("div");
+        message.className = "message";
+        message.classList.add("friend-message");
+        message.textContent = res.message;
+        messagesBox.appendChild(message);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+    } else {
+        const notification = new Notification(`New message from ${res.sender.email}`, {
+            body: res.message,
+            requireInteraction: true,
+            icon: "/static/logos/justus-logo-bowb.png",
+        });
+        notification.addEventListener("click", ()=> {
+            location.href = `/chats/${res.sender.id}`;
+        });
+        notification.addEventListener("close", ()=> {
+        });
+    }
 });
 
 sendBtn.addEventListener('click', () => {
@@ -42,19 +59,6 @@ async function get_users() {
     return data;
 }
 
-
-interface Users {
-    data: {
-        id: string,
-        email: string,
-        first_name: string,
-        last_name: string,
-        middle_name: string | null,
-        date: Date | null,
-        is_active: boolean,
-    },
-    status: string
-}
 
 // newConvoBtn.addEventListener("click", async () => {
 //     const modal = document.createElement("div") as HTMLDivElement;
@@ -89,13 +93,6 @@ interface Users {
 //     document.querySelector(".chats-menu")!.appendChild(modal);
 // })
 
-interface Mesg {
-    id: string,
-    message: string,
-    receiver_id: string,
-    sender_id: string,
-    timestamp: string
-}
 
 async function setMessages(user_id?: string) {
     messagesBox.innerHTML = "";

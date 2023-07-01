@@ -23,7 +23,7 @@ def chats(user_id: str):
     chat_user = User.get('id', user_id)
     if not chat_user:
         return redirect(url_for("chat.chats_page"))
-    return render_template("chats.html", chat_user=chat_user)
+    return render_template("chats.html", chat_user=chat_user, recent_chats=current_user.recent_messages())
 
 
 @chat_views.route("/messages/<string:user_id>", strict_slashes=False, methods=["GET"])

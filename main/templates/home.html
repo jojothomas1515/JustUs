@@ -2,6 +2,7 @@
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('home.static', filename='css/home.css') }}">
     <script src="{{ url_for('home.static', filename='scripts/home.js') }}" type="module"></script>
+    <script src="{{ url_for('home.static', filename='scripts/realtime.js') }}" defer></script>
 {% endblock %}
 {% block title %}<title> Justus </title> {% endblock %}
 {% block content %}
