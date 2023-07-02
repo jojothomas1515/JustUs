@@ -30,7 +30,11 @@ sio.addEventListener("answer", async (data: any) => {
     console.log("answer gotten");
 });
 
-const configuration = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}]}
+const configuration = {
+    iceServers: [{
+        urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302',],
+    },], iceCandidatePoolSize: 10,
+};
 
 async function placeCall() {
     const peerConnection = new RTCPeerConnection(configuration);
@@ -42,6 +46,15 @@ async function placeCall() {
             const remoteSessDecs = new RTCSessionDescription(message.answer);
             console.log("i have gotten an answer")
             await peerConnection.setRemoteDescription(remoteSessDecs);
+            peerConnection.addEventListener("icecandidate", event => {
+                console.log("this is event candidate");
+                console.log(event.candidate);
+                if (event.candidate) {
+                    sio.emit("ice", JSON.stringify({
+                        id: "45b0f1b4-e77f-476c-b26d-475a4233dfa8", iceCandidate: event.candidate
+                    }));
+                }
+            });
             peerConnection.addEventListener("connectionstatechange", (evt) => {
                 if (peerConnection.connectionState === "connected") {
                     peerConnection.addEventListener('track', async (event) => {
@@ -77,8 +90,21 @@ async function answerCall(res: any) {
     const offer = new RTCSessionDescription(res.offer);
     await peerConnection.setRemoteDescription(offer);
     const answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer)
+    await peerConnection.setLocalDescription(answer);
     sio.emit("answer", JSON.stringify({id: "3afc9e6e-99ed-4a70-9c6f-b1a1a4e7b725", answer: answer}));
+
+    sio.addEventListener("ice-candidate", async (data: any) => {
+        const message = JSON.parse(data);
+        console.log(message);
+        if (message.iceCandidate) {
+            try {
+                await peerConnection.addIceCandidate(message.iceCandidate);
+            } catch (e) {
+                console.log("error adding ice candidate");
+            }
+        }
+
+    });
 
     peerConnection.addEventListener("connectionstatechange", async (evt) => {
         if (peerConnection.connectionState === "connected") {

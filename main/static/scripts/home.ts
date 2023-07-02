@@ -113,5 +113,5 @@ async function loadAllUsers() {
     })
 }
 
-loadAllUsers();
-loadFriends();
+loadAllUsers().catch(err=>console.log(err));
+loadFriends().catch(err=>console.log(err))

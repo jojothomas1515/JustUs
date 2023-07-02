@@ -9,10 +9,12 @@ from models.db import sess
 from main import auth_views, users_views, home_views
 from main import chat_views, socketio
 from models.user import User
+from flask_cors import CORS
 
 login_manager = LoginManager()
 app = Flask(__name__)
 socketio.init_app(app)
+CORS(app=app, resources={"/*": {"origins": "*"}})
 login_manager.init_app(app)
 login_manager.login_view = 'auth.login_page'
 

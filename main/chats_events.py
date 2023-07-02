@@ -59,11 +59,21 @@ def say_offer(data):
             emit("offer", json.dumps(data), room=target)
 
 @socketio.on("answer")
-def say_offer(data):
+def ans_offer(data):
+    user: User = current_user
+    data = json.loads(data)
+    if data["id"] is not None:
+        target = r.hget("chat_sess", data["id"])
+        if target:
+            emit("answer", json.dumps(data), room=target)
+
+
+@socketio.on("ice")
+def candidate_offer(data):
     user: User = current_user
     data = json.loads(data)
     print(data)
     if data["id"] is not None:
         target = r.hget("chat_sess", data["id"])
         if target:
-            emit("answer", json.dumps(data), room=target)
+            emit("ice-candidate", json.dumps(data), room=target)

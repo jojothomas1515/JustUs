@@ -106,5 +106,5 @@ async function loadAllUsers() {
         usersList.appendChild(friend);
     });
 }
-loadAllUsers();
-loadFriends();
+loadAllUsers().catch(err => console.log(err));
+loadFriends().catch(err => console.log(err));
