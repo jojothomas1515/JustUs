@@ -15,6 +15,17 @@ sio.addEventListener("message", (data) => {
 const friendsList = document.querySelector("#accepted-users");
 const requestsList = document.querySelector("#pending-users");
 const usersList = document.querySelector("#all-users");
+const updateProfile = document.querySelector("#update-profile-btn");
+const closeUpdateProfile = document.querySelector("#close-update-profile-btn");
+const updateProfileModal = document.querySelector(".update_profile");
+updateProfile.addEventListener("click", () => {
+    console.log("clicked");
+    updateProfileModal.style.display = "block";
+});
+closeUpdateProfile.addEventListener("click", () => {
+    console.log("clicked");
+    updateProfileModal.style.display = "none";
+});
 async function loadFriends() {
     const res = await fetch("/users/friends");
     if (res.status === 200) {

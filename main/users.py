@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """Users route and views"""
 
-from flask import jsonify
+from flask import jsonify, render_template, url_for, redirect
 from flask_login import current_user, login_required
 
 from controllers.friends_controller import send_friend_request, accept_friend_request, reject_friend_request
-from controllers.auth_controller import update_profile
+from controllers.auth_controller import update_profile, update_profile_image
 from main import users_views
 from models.user import User
 
@@ -49,7 +49,11 @@ def accept_friend(user_id: str):
 def reject_friend_request(user_id: str):
     """Reject a friend request."""
     return reject_friend_request(user_id)
-@users_views.route("/update_profile", strict_slashes=False, methods=["put"])
+
+
+@users_views.route("/update_profile", strict_slashes=False, methods=["POST"])
 def update_user_profile():
     """update profile info"""
-    return update_profile()
+    update_profile_image()
+    update_profile()
+    return redirect(url_for('home.home_page'))

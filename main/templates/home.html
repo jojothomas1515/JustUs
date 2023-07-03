@@ -12,10 +12,12 @@
     </header>
     <main>
         <div class="profile-con">
+            <button id="update-profile-btn"><i class="fa fa-edit fa-2x"></i></button>
             <div class="profile">
 
                 {% if user %}
                     <img class="profile-pic" src="{% if not user.profile_img %}
+
                         {{ url_for('home.static', filename='images/logos/justus-logo-bnb.png') }}{% else %} {{ user.profile_img }}{% endif %}"
                          alt="Profile Picture">
                     <p><b>Name:</b>{{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}</p>
@@ -26,11 +28,22 @@
                     <p><b>Name:</b>Anonymous User</p>
                 {% endif %}
             </div>
+            {% if user %}
+                <div class="update_profile">
+                    <button class="close-btn" id="close-update-profile-btn"><i class="fa fa-close"></i></button>
+                    <form action="/users/update_profile" method="POST" enctype="multipart/form-data">
+                        <input type="file" accept="image/*" name="profile_img" value="{{ user.profile_img }}">
+                        <input type="text" name="first_name" value="{{ user.first_name }}">
+                        <input type="text" name="last_name" value="{{ user.last_name }}">
+                        <input type="text" name="middle_name" value="{{ user.middle_name }}">
+                        <input type="submit" value="Update">
+                    </form>
+                </div>
+            {% endif %}
         </div>
         <div class="all-users">
             <h1> Users </h1>
             <div class="users-con" id="all-users">
-
             </div>
         </div>
         <div class="friend-lists-request">

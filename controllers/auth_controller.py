@@ -58,13 +58,22 @@ def signup():
 def update_profile():
     """Update Profile."""
     user: User = current_user
-    if not user.is_authenticated:
-        return jsonify(error="Unauthorized User")
-    print(request.form)
+    user.first_name = request.form.get("first_name")
+    user.last_name = request.form.get("last_name")
+    user.middle_name = request.form.get("middle_name")
+    return user
+
+
+def update_profile_image():
+    """Update profile image"""
     file = request.files.get("profile_img")
-    filename = f"/files/profile_images/{user.id}.jpg"
-    file.save(f".{filename}")
-    # requests.post(url="http://web-02.jojothomas.tech/upload", files=file)
-    user.profile_img = filename
-    user.save()
-    return jsonify(user.to_dict()), 201
+    if file:
+        user: User = current_user
+        if not user.is_authenticated:
+            return jsonify(error="Unauthorized User")
+        filename = f"/files/profile_images/{user.id}.jpg"
+        file.save(f".{filename}")
+        # requests.post(url="http://web-02.jojothomas.tech/upload", files=file)
+        user.profile_img = filename
+        user.save()
+        return user

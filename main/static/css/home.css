@@ -50,6 +50,74 @@ body main > div {
 }
 body main .profile-con {
   padding: 1rem;
+  position: relative;
+}
+body main .profile-con #update-profile-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+body main .profile-con .update_profile {
+  position: fixed;
+  background-color: #00264d;
+  height: 100dvh;
+  top: 0;
+  left: 0;
+  width: 360px;
+  z-index: 10000;
+  color: white;
+  display: none;
+}
+body main .profile-con .update_profile .close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+body main .profile-con .update_profile form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20%;
+  box-shadow: 0 0 10px #d18b8d;
+  width: 80%;
+  padding: 2rem;
+  margin: 2rem auto;
+}
+body main .profile-con .update_profile form input {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  outline: none;
+  background-color: #d18b8d;
+  color: white;
+  border-radius: 10px;
+  margin: 0.5rem 0;
+}
+body main .profile-con .update_profile form input[type=text] {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  outline: none;
+  background-color: #d18b8d;
+  color: white;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+body main .profile-con .update_profile form input[type=submit] {
+  padding: 0.3rem 0.6rem;
+  border: none;
+  outline: none;
+  background-color: #d18b8d;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color, color, 100ms ease-in-out;
+}
+body main .profile-con .update_profile form input[type=submit]:hover {
+  background-color: #fff;
+  color: #d18b8d;
 }
 body main .profile-con .profile {
   display: flex;

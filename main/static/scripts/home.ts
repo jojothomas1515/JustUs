@@ -18,6 +18,19 @@ sio.addEventListener("message", (data: any) => {
 const friendsList: HTMLDivElement = document.querySelector("#accepted-users") as HTMLDivElement;
 const requestsList: HTMLDivElement = document.querySelector("#pending-users") as HTMLDivElement;
 const usersList: HTMLDivElement = document.querySelector("#all-users") as HTMLDivElement;
+const updateProfile: HTMLButtonElement = document.querySelector("#update-profile-btn") as HTMLButtonElement;
+const closeUpdateProfile: HTMLButtonElement = document.querySelector("#close-update-profile-btn") as HTMLButtonElement;
+const updateProfileModal: HTMLDivElement = document.querySelector(".update_profile") as HTMLDivElement;
+
+updateProfile.addEventListener("click", () => {
+    console.log("clicked");
+    updateProfileModal.style.display = "block";
+});
+
+closeUpdateProfile.addEventListener("click", () => {
+    console.log("clicked");
+    updateProfileModal.style.display = "none";
+});
 
 
 async function loadFriends() {
@@ -105,8 +118,8 @@ async function loadAllUsers() {
     })
 }
 
-loadAllUsers().catch(err=>console.log(err));
-loadFriends().catch(err=>console.log(err))
+loadAllUsers().catch(err => console.log(err));
+loadFriends().catch(err => console.log(err))
 
 try {
     if (Notification.permission === "granted") {
