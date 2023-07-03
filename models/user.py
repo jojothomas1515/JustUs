@@ -23,6 +23,7 @@ class User(BaseModel, Base):
     date_of_birth = Column(Date)
     password = Column(String(200), nullable=False)
     is_active = Column(Boolean)
+    profile_img = Column(String(500))
 
     @property
     def friends(self):

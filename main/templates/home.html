@@ -8,14 +8,16 @@
 {% block content %}
     <header>
         <img class="logo" src="{{ url_for('static', filename='logos/justus-logo-bnb.png') }}" alt="Logo">
-        <h1>Home</h1>
+        <a href="{{ url_for("auth.logout") }}" title="Logout"><i class="fa fa-sign-out fa-2x"></i></a>
     </header>
     <main>
         <div class="profile-con">
             <div class="profile">
-                <img class="profile-pic" src="{{ url_for('home.static', filename='images/logos/justus-logo-bnb.png') }}"
-                     alt="Profile Picture">
+
                 {% if user %}
+                    <img class="profile-pic" src="{% if not user.profile_img %}
+                        {{ url_for('home.static', filename='images/logos/justus-logo-bnb.png') }}{% else %} {{ user.profile_img }}{% endif %}"
+                         alt="Profile Picture">
                     <p><b>Name:</b>{{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}</p>
                     <p><b>Email:</b> {{ user.email }}</p>
                     <p><b>Bio:</b> Do hard things</p>

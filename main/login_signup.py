@@ -5,7 +5,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user
 
-from controllers.auth_controller import login, signup
+from controllers.auth_controller import login, signup, logout_user
 from main import auth_views
 
 
@@ -18,7 +18,7 @@ def login_page():
         POST: authenticate user and redirect to the chat page
     """
     if current_user.is_authenticated:
-        return redirect(url_for("chat.chats_page"))
+        return redirect(url_for("home.home_page"))
     if request.method == "POST":
         return login()
     return render_template('login_page.html')
@@ -39,7 +39,14 @@ def signup_page():
     return render_template('signup_page.html')
 
 
+@auth_views.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("auth.login_page"))
+
 # todo: implement password reset
 @auth_views.route('/reset_password', strict_slashes=False, methods=['GET', 'POST'])
 def password_reset():
     pass
+
+

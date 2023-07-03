@@ -16,6 +16,7 @@ create table users
     email         VARCHAR(200) NOT NULL,
     date_of_birth DATE,
     password      VARCHAR(200) not null,
+    profile_img   VARCHAR(500),
     is_active     BOOLEAN,
     CONSTRAINT pk_alt CHECK ( first_name <> '' and last_name <> '' and email <> '')
 );

@@ -14,11 +14,6 @@ body {
       justify-content: center;
       float: left;
     }
-
-    h1 {
-      text-align: center;
-    }
-
   }
 }
 
@@ -29,12 +24,31 @@ main {
   width: 100%;
   margin-top: 10px;
 
+  #open-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    backdrop-filter: drop-shadow(0 0 10px black);
+    display: none;
+    @media screen and (max-width: 800px) {
+      display: block;
+    }
+  }
+
   .chats-con {
     background-color: rgba(white, .6);
     height: 100%;
     width: max(360px, 50%);
-    //// todo
-    //display: none;
+    // todo
+    @media screen and (max-width: 800px) {
+      transition: left 200ms ease-in-out;
+      display: block;
+      position: absolute;
+      width: 100%;
+      background-color: white;
+      left: -100%;
+      z-index: 1000;
+    }
 
     .chats-menu {
       background-color: #00264d;
@@ -62,6 +76,7 @@ main {
         padding: .2rem .5rem;
         border-radius: 10px;
         transition: background-color, color, 200ms ease-in-out;
+
 
         &:hover {
           background-color: rgba(#00264d, .8);
@@ -109,9 +124,14 @@ main {
 
         .profile-image-con {
           width: 50px;
+          border-radius: 50%;
+          overflow: hidden;
 
           img {
+            // todo:
             object-fit: contain;
+            aspect-ratio: 1/1;
+
           }
         }
       }

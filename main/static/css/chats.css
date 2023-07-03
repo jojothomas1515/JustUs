@@ -12,9 +12,6 @@ body header .logo {
   justify-content: center;
   float: left;
 }
-body header h1 {
-  text-align: center;
-}
 
 main {
   display: flex;
@@ -23,10 +20,33 @@ main {
   width: 100%;
   margin-top: 10px;
 }
+main #open-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  backdrop-filter: drop-shadow(0 0 10px black);
+  display: none;
+}
+@media screen and (max-width: 800px) {
+  main #open-close {
+    display: block;
+  }
+}
 main .chats-con {
   background-color: rgba(255, 255, 255, 0.6);
   height: 100%;
   width: max(360px, 50%);
+}
+@media screen and (max-width: 800px) {
+  main .chats-con {
+    transition: left 200ms ease-in-out;
+    display: block;
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    left: -100%;
+    z-index: 1000;
+  }
 }
 main .chats-con .chats-menu {
   background-color: #00264d;
@@ -92,9 +112,12 @@ main .messages-con .friend-profile-info-menu .profile-info {
 }
 main .messages-con .friend-profile-info-menu .profile-info .profile-image-con {
   width: 50px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 main .messages-con .friend-profile-info-menu .profile-info .profile-image-con img {
   object-fit: contain;
+  aspect-ratio: 1/1;
 }
 main .messages-con .friend-profile-info-menu .rtc-menu {
   display: flex;

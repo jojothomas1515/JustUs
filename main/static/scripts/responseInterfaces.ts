@@ -6,6 +6,7 @@ interface User {
     middle_name: string,
     email: string,
     date_of_birth: string | null
+    profile_img: string | null,
 }
 
 interface Friend {

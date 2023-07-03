@@ -4,13 +4,9 @@ const messageInput = document.querySelector("#message-input");
 const sendBtn = document.querySelector("#send");
 const newConvoBtn = document.querySelector("#new-convo");
 const friendProf = document.querySelector(".profile-info");
-if (Notification.permission === "granted") {
-    console.log("can show notification");
-}
-else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(permission => {
-    }).catch(err => console.log("error occured"));
-}
+const toggleRecents = document.querySelector("#open-close");
+const recentChatsContainer = document.querySelector(".chats-con");
+const profileImage = document.querySelector("#p-img");
 // @ts-ignore
 const sio = io();
 sio.addEventListener("message", (data) => {
@@ -25,9 +21,7 @@ sio.addEventListener("message", (data) => {
     }
     else {
         const notification = new Notification(`New message from ${res.sender.email}`, {
-            body: res.message,
-            requireInteraction: true,
-            icon: "/static/logos/justus-logo-bowb.png",
+            body: res.message, requireInteraction: true, icon: "/static/logos/justus-logo-bowb.png",
         });
         notification.addEventListener("click", () => {
             location.href = `/chats/${res.sender.id}`;
@@ -36,11 +30,17 @@ sio.addEventListener("message", (data) => {
         });
     }
 });
+toggleRecents.addEventListener("click", () => {
+    const left = recentChatsContainer.style.left;
+    recentChatsContainer.style.left = left === "-100%" || left === "" ? "0" : "-100%";
+});
 sendBtn.addEventListener('click', () => {
     const message = document.createElement("div");
     message.className = "message";
     message.classList.add("me");
     const content = messageInput.value;
+    if (messageInput.value === "")
+        return;
     message.textContent = content;
     messagesBox.appendChild(message);
     messagesBox.scrollTop = messagesBox.scrollHeight;
@@ -105,4 +105,10 @@ async function setMessages(user_id) {
         messagesBox.appendChild(message);
     });
     messagesBox.scrollTop = messagesBox.scrollHeight;
+}
+if (Notification.permission === "granted") {
+}
+else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(permission => {
+    }).catch(err => console.log("error occured"));
 }

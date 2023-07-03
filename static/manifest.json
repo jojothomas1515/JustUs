@@ -1,0 +1,11 @@
+{
+  "name": "justus web app",
+  "short_name": "justus",
+  "description": "justus web app",
+  "display": "standalone",
+
+  "icon": [
+    {"src": "/static/logos/justus-logo-tbc.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "/static/logos/justus-logo-bowb.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}

@@ -3,13 +3,10 @@ const messageInput: HTMLInputElement = document.querySelector("#message-input") 
 const sendBtn: HTMLButtonElement = document.querySelector("#send") as HTMLButtonElement;
 const newConvoBtn: HTMLButtonElement = document.querySelector("#new-convo") as HTMLButtonElement;
 const friendProf: HTMLDivElement = document.querySelector(".profile-info") as HTMLDivElement;
+const toggleRecents: HTMLButtonElement = document.querySelector("#open-close") as HTMLButtonElement;
+const recentChatsContainer: HTMLDivElement = document.querySelector(".chats-con") as HTMLDivElement;
+const profileImage: HTMLImageElement = document.querySelector("#p-img") as HTMLImageElement;
 
-if (Notification.permission === "granted") {
-    console.log("can show notification")
-} else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(permission => {
-    }).catch(err => console.log("error occured"));
-}
 // @ts-ignore
 const sio = io();
 
@@ -24,16 +21,19 @@ sio.addEventListener("message", (data: any) => {
         messagesBox.scrollTop = messagesBox.scrollHeight;
     } else {
         const notification = new Notification(`New message from ${res.sender.email}`, {
-            body: res.message,
-            requireInteraction: true,
-            icon: "/static/logos/justus-logo-bowb.png",
+            body: res.message, requireInteraction: true, icon: "/static/logos/justus-logo-bowb.png",
         });
-        notification.addEventListener("click", ()=> {
+        notification.addEventListener("click", () => {
             location.href = `/chats/${res.sender.id}`;
         });
-        notification.addEventListener("close", ()=> {
+        notification.addEventListener("close", () => {
         });
     }
+});
+
+toggleRecents.addEventListener("click", () => {
+    const left = recentChatsContainer.style.left;
+    recentChatsContainer.style.left = left === "-100%" || left === "" ? "0" : "-100%";
 });
 
 sendBtn.addEventListener('click', () => {
@@ -41,6 +41,8 @@ sendBtn.addEventListener('click', () => {
     message.className = "message";
     message.classList.add("me");
     const content: string = messageInput.value;
+    if (messageInput.value === "")
+        return;
     message.textContent = content;
     messagesBox.appendChild(message);
     messagesBox.scrollTop = messagesBox.scrollHeight;
@@ -111,3 +113,8 @@ async function setMessages(user_id?: string) {
 
 }
 
+if (Notification.permission === "granted") {
+} else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(permission => {
+    }).catch(err => console.log("error occured"));
+}

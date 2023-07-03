@@ -1,11 +1,4 @@
 import { acceptFriendRequest, sendFriendRequest } from "./utilities.js";
-if (Notification.permission === "granted") {
-    console.log("can show notification");
-}
-else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(permission => {
-    }).catch(err => console.log("error occured"));
-}
 // @ts-ignore
 const sio = io();
 sio.addEventListener("message", (data) => {
@@ -33,7 +26,7 @@ async function loadFriends() {
         const friend = document.createElement("div");
         friend.className = "users";
         const profImg = document.createElement("img");
-        profImg.src = "/images/logos/justus-logo-bnb.png";
+        profImg.src = user.data.profile_img || "/images/logos/justus-logo-bnb.png";
         const infoCon = document.createElement("div");
         const name = document.createElement("h4");
         const email = document.createElement("p");
@@ -81,12 +74,11 @@ async function loadAllUsers() {
     if (res.status === 200)
         usersList.innerHTML = "";
     const data = await res.json();
-    console.log(data);
     data.forEach((user) => {
         const friend = document.createElement("div");
         friend.className = "users";
         const profImg = document.createElement("img");
-        profImg.src = "/images/logos/justus-logo-bnb.png";
+        profImg.src = user.profile_img || "/images/logos/justus-logo-bnb.png";
         const infoCon = document.createElement("div");
         const name = document.createElement("h4");
         const email = document.createElement("p");
@@ -108,3 +100,14 @@ async function loadAllUsers() {
 }
 loadAllUsers().catch(err => console.log(err));
 loadFriends().catch(err => console.log(err));
+try {
+    if (Notification.permission === "granted") {
+        console.log("can show notification");
+    }
+    else if (Notification.permission !== "denied") {
+        Notification.requestPermission();
+    }
+}
+catch (e) {
+    console.log(e);
+}

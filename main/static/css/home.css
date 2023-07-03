@@ -1,7 +1,10 @@
 body header {
   background-color: rgba(255, 255, 255, 0.8);
   margin-top: min(1rem, 1%);
-  padding-block: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 body header .logo {
   max-width: min(100%, 7rem);
@@ -14,6 +17,12 @@ body header .logo {
 }
 body header h1 {
   text-align: center;
+}
+body header a {
+  text-decoration: none;
+  color: black;
+  backdrop-filter: drop-shadow(0px 0px 10px black);
+  cursor: pointer;
 }
 body main {
   display: flex;
@@ -82,6 +91,7 @@ body main .friend-lists-request .users-con .users > div, body main .all-users .u
   display: inline-block;
   transform: translateY(-20%);
   top: 50%;
+  width: 65%;
 }
 body main .friend-lists-request .users-con .users > div p, body main .all-users .users-con .users > div p {
   font-size: 0.8rem;
@@ -89,6 +99,9 @@ body main .friend-lists-request .users-con .users > div p, body main .all-users 
 }
 body main .friend-lists-request .users-con .users > div h4, body main .all-users .users-con .users > div h4 {
   font-style: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   font-size: 1rem;
 }
 body main .friend-lists-request .users-con .users img, body main .all-users .users-con .users img {

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """Login controller."""
-
-from flask import render_template, request, flash, redirect, url_for
-from flask_login import login_user, current_user
+import requests
+from flask import render_template, request, flash, redirect, url_for, jsonify
+from flask_login import login_user, current_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 from models.user import User
 
@@ -32,6 +32,7 @@ def login():
         flash("Incorrect password", "error")
         return render_template("login_page.html")
 
+
 def signup():
     """Signup user."""
     first_name = request.form.get('firstname')
@@ -52,3 +53,18 @@ def signup():
                 password=generate_password_hash(password=password), is_active=True)
     user.save()
     return redirect(url_for(endpoint='auth.login_page'))
+
+
+def update_profile():
+    """Update Profile."""
+    user: User = current_user
+    if not user.is_authenticated:
+        return jsonify(error="Unauthorized User")
+    print(request.form)
+    file = request.files.get("profile_img")
+    filename = f"/files/profile_images/{user.id}.jpg"
+    file.save(f".{filename}")
+    # requests.post(url="http://web-02.jojothomas.tech/upload", files=file)
+    user.profile_img = filename
+    user.save()
+    return jsonify(user.to_dict()), 201

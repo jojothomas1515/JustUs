@@ -1,5 +1,4 @@
 body {
-
   .logo {
     max-width: min(100%, 25rem);
     aspect-ratio: 1/.8;
@@ -133,6 +132,7 @@ form {
     bottom: -2.5rem;
     translate: -50% 0;
     left: 50%;
+
     box-shadow: inset 0 10px 10px rgba(0, 0, 0, .3);
     font-size: 1rem;
     color: #fff;

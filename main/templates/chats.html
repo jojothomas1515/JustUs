@@ -9,10 +9,17 @@
 {% endblock %}
 
 {% block content %}
-    <header><img class="logo" src="{{ url_for('static', filename='logos/justus-logo-bnb.png') }}" alt="Logo">
-        <h1>Chats</h1></header>
+    <header>
+        <a href="{{ url_for("home.home_page") }}"> <img class="logo"
+                                                        src="{{ url_for('static', filename='logos/justus-logo-bnb.png') }}"
+                                                        alt="Logo"></a>
+    </header>
     <main>
+        <div id="open-close">
+            <i class="far fa-comment-alt fa-2x"></i>
+        </div>
         <div class="chats-con">
+
             <div class="chats-menu">
                 <div>Chat Menu</div>
                 <button class="new-convo" id="new-convo"><i class="far fa-comment-alt fa-2x"></i></button>
@@ -22,11 +29,12 @@
                     {% for chat in recent_chats %}
                         <a class="chat" href="/chats/{{ chat.user.id }}">
                             <div class="profile-image-con">
-                                <img src="{{ url_for('static',filename='logos/justus-logo-tbc.png') }}"
+                                <img src="
+                                        {% if not chat.user.profile_img %}{{ url_for('static',filename='logos/justus-logo-tbc.png') }}{% else %}{{ chat.user.profile_img }}{% endif %}"
                                      alt="profile-image">
                             </div>
                             <div>
-                                <p class="chat-name">{{ chat.user.first_name}} {{ chat.user.middle_name }} {{ chat.user.last_name }}</p>
+                                <p class="chat-name">{{ chat.user.first_name }} {{ chat.user.middle_name }} {{ chat.user.last_name }}</p>
                                 <p class="chat-last-message">{{ chat.data.message | truncate(30) }}</p>
                             </div>
                         </a>
@@ -39,7 +47,9 @@
                 <div class="profile-info" {% if chat_user %} data-userId="{{ chat_user.id }}" {% endif %}>
                     {% if chat_user %}
                         <div class="profile-image-con">
-                            <img src="{{ url_for('static',filename='logos/justus-logo-tbc.png') }}" alt="profile-image">
+                            <img id="p-img" src="
+                                    {% if not chat_user.profile_img %}{{ url_for('static',filename='logos/justus-logo-tbc.png') }} {% else %} {{ chat_user.profile_img }} {% endif %}"
+                                 alt="profile-image">
                         </div>
                         <p>{{ chat_user.first_name }} {{ chat_user.last_name }}</p>
                     {% else %}

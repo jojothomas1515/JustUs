@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Module for chat views."""
 
-from flask import render_template, jsonify, redirect, url_for
+from flask import render_template, jsonify, redirect, url_for, request
 from flask_login import login_required, current_user
 
 from main import chat_views
