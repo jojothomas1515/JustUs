@@ -113,11 +113,11 @@ main .messages-con .friend-profile-info-menu .profile-info {
 main .messages-con .friend-profile-info-menu .profile-info .profile-image-con {
   width: 50px;
   border-radius: 50%;
-  overflow: hidden;
 }
 main .messages-con .friend-profile-info-menu .profile-info .profile-image-con img {
   object-fit: contain;
   aspect-ratio: 1/1;
+  border-radius: 50%;
 }
 main .messages-con .friend-profile-info-menu .rtc-menu {
   display: flex;

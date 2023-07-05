@@ -125,12 +125,13 @@ main {
         .profile-image-con {
           width: 50px;
           border-radius: 50%;
-          overflow: hidden;
 
           img {
             // todo:
             object-fit: contain;
             aspect-ratio: 1/1;
+            border-radius: 50%;
+
 
           }
         }
