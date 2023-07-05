@@ -1,11 +1,10 @@
 ---
 - name: setup justus
   hosts: web_servers
-  tasks:
-#    - name: copy file to server
-#      copy:
-#        src: ../JustUs/tsconfig.json
-#        dest: ~/
+  tasks: #    - name: copy file to server
+    #      copy:
+    #        src: ../JustUs/tsconfig.json
+    #        dest: ~/
 
     - name: clone repo
       git:
@@ -14,9 +13,20 @@
         dest: ~/JustUs
         update: yes
 
+    - name: install psycopg2 dependency
+      become: yes
+      apt:
+        name: libpq-dev
+        state: present
+
+    - name: install postgresql
+      become: yes
+      apt:
+        name: postgresql
+        state: present
+
     - name: install requirements
       become: yes
       pip:
-        requirements: requirements.txt
-        chdir: ~/JustUs
+        requirements: /home/ubuntu/JustUs/requirements.txt
         state: present
