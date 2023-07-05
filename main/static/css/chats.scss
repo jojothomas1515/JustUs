@@ -87,10 +87,12 @@ main {
           width: 50px;
           border: 1px solid white;
           border-radius: 50%;
+          overflow: hidden;
           background-color: #00264d;
 
           img {
-            object-fit: contain;
+            object-fit: cover;
+            aspect-ratio: 1/1;
           }
         }
       }
@@ -128,7 +130,7 @@ main {
 
           img {
             // todo:
-            object-fit: contain;
+            object-fit: cover;
             aspect-ratio: 1/1;
             border-radius: 50%;
 

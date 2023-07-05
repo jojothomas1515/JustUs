@@ -80,10 +80,12 @@ main .chats-con .recent-chats .chat .profile-image-con {
   width: 50px;
   border: 1px solid white;
   border-radius: 50%;
+  overflow: hidden;
   background-color: #00264d;
 }
 main .chats-con .recent-chats .chat .profile-image-con img {
-  object-fit: contain;
+  object-fit: cover;
+  aspect-ratio: 1/1;
 }
 main .messages-con {
   background-color: rgba(255, 255, 255, 0.6);
@@ -115,7 +117,7 @@ main .messages-con .friend-profile-info-menu .profile-info .profile-image-con {
   border-radius: 50%;
 }
 main .messages-con .friend-profile-info-menu .profile-info .profile-image-con img {
-  object-fit: contain;
+  object-fit: cover;
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
