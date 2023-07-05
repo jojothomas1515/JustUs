@@ -1,0 +1,22 @@
+---
+- name: setup justus
+  hosts: web_servers
+  tasks:
+#    - name: copy file to server
+#      copy:
+#        src: ../JustUs/tsconfig.json
+#        dest: ~/
+
+    - name: clone repo
+      git:
+        repo: https://github.com/jojothomas1515/JustUs
+        clone: yes
+        dest: ~/JustUs
+        update: yes
+
+    - name: install requirements
+      become: yes
+      pip:
+        requirements: requirements.txt
+        chdir: ~/JustUs
+        state: present
