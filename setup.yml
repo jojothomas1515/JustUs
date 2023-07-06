@@ -94,6 +94,8 @@
         name: justus
         state: started
         enabled: yes
+      notify:
+        - restart nginx
 
 
     - name: restart nginx
