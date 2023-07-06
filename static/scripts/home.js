@@ -111,14 +111,17 @@ async function loadAllUsers() {
 }
 loadAllUsers().catch(err => console.log(err));
 loadFriends().catch(err => console.log(err));
-try {
-    if (Notification.permission === "granted") {
-        console.log("can show notification");
+(async () => {
+    try {
+        console.log("hello");
+        if (Notification.permission === "granted") {
+            console.log("can show notification");
+        }
+        else if (Notification.permission !== "denied") {
+            Notification.requestPermission();
+        }
     }
-    else if (Notification.permission !== "denied") {
-        Notification.requestPermission();
+    catch (e) {
+        console.log(e);
     }
-}
-catch (e) {
-    console.log(e);
-}
+})();
