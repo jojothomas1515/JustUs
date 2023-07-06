@@ -74,8 +74,16 @@
     - name: justus gunicorn service
       become: yes
       template:
-          src: /home/ubuntu/JustUs/justus_gunicorn.service
-          dest: /etc/systemd/system/justus_gunicorn.service
+          src: /home/ubuntu/JustUs/justus.service
+          remote_src: yes
+          dest: /etc/systemd/system/justus
+
+    - name: justus gunicorn service
+      become: yes
+      copy:
+          src: /home/ubuntu/JustUs/justus.service
+          remote_src: yes
+          dest: /etc/systemd/system/justus.service
           owner: root
           group: root
           mode: 0644
