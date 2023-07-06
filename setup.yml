@@ -13,6 +13,12 @@
         dest: ~/JustUs
         update: yes
 
+    - name: install nginx
+      become: yes
+      apt:
+        name: nginx
+        state: present
+
     - name: install psycopg2 dependency
       become: yes
       apt:
@@ -72,21 +78,15 @@
         state: absent
         path: /etc/nginx/sites-enabled/default
 
-    - name: restart nginx
-      become: yes
-      service:
-        name: nginx
-        state: restarted
-
     - name: justus gunicorn service
       become: yes
       copy:
-          src: /home/ubuntu/JustUs/justus.service
-          remote_src: yes
-          dest: /etc/systemd/system/justus.service
-          owner: root
-          group: root
-          mode: 0644
+        src: /home/ubuntu/JustUs/justus.service
+        remote_src: yes
+        dest: /etc/systemd/system/justus.service
+        owner: root
+        group: root
+        mode: 0644
 
     - name: start justus gunicorn service
       become: yes
@@ -94,3 +94,10 @@
         name: justus
         state: started
         enabled: yes
+
+
+    - name: restart nginx
+      become: yes
+      service:
+        name: nginx
+        state: restarted

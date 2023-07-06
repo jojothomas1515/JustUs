@@ -7,7 +7,7 @@ User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/JustUs/
 EnvironmentFile=/home/ubuntu/JustUs/justus_env.env
-ExecStart=/usr/bin/gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 app:app -b 0.0.0.0:5000
+ExecStart=/usr/bin/gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 -t 100 app:app -b 0.0.0.0:5000
 Restart=always
 [Install]
 WantedBy=multi-user.target
