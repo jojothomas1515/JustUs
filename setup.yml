@@ -32,6 +32,13 @@
         state: started
         enabled: yes
 
+    - name: install gunicorn dependency
+      become: yes
+      apt:
+        name: gunicorn
+        state: present
+
+
     - name: execute sql script
       become: yes
       shell: sudo -upostgres psql -f /home/ubuntu/JustUs/sql/setup_database.sql
@@ -70,13 +77,6 @@
       service:
         name: nginx
         state: restarted
-
-    - name: justus gunicorn service
-      become: yes
-      template:
-          src: /home/ubuntu/JustUs/justus.service
-          remote_src: yes
-          dest: /etc/systemd/system/justus
 
     - name: justus gunicorn service
       become: yes
