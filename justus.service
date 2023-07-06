@@ -1,0 +1,14 @@
+Unit]
+Description=JustUs
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/JustUs/
+EnvironmentFile=/home/ubuntu/JustUs/justus_env.env
+ExecStart=/usr/bin/gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker --workers 1 -b 0.0.0.0:5000 --error-logfile /tmp/justus-error.log --access-logfile /tmp/justus-access.log app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

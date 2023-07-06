@@ -25,6 +25,17 @@
         name: postgresql
         state: present
 
+    - name: start postgresql
+      become: yes
+      service:
+        name: postgresql
+        state: started
+        enabled: yes
+
+    - name: execute sql script
+      become: yes
+      shell: sudo -upostgres psql -f /home/ubuntu/JustUs/sql/setup_database.sql
+
     - name: install requirements
       become: yes
       pip:
@@ -34,7 +45,8 @@
     - name: copy justus nginx conf
       become: yes
       copy:
-        remote_src: /home/ubuntu/JustUs/justus_nginx.conf
+        src: /home/ubuntu/JustUs/justus_nginx.conf
+        remote_src: true
         dest: /etc/nginx/sites-available/justus_nginx.conf
         owner: root
         group: root
@@ -59,9 +71,18 @@
         name: nginx
         state: restarted
 
-    - name: run gunicorn
-      gunicorn:
-        chdir: /home/ubuntu/JustUs
-        app: app.py
-        worker: geventwebsocket.gunicorn.workers.GeventWebSocketWorker
-        bind: "127.0.0.1:5000"
+    - name: justus gunicorn service
+      become: yes
+      template:
+          src: /home/ubuntu/JustUs/justus_gunicorn.service
+          dest: /etc/systemd/system/justus_gunicorn.service
+          owner: root
+          group: root
+          mode: 0644
+
+    - name: start justus gunicorn service
+      become: yes
+      service:
+        name: justus
+        state: started
+        enabled: yes
