@@ -30,3 +30,38 @@
       pip:
         requirements: /home/ubuntu/JustUs/requirements.txt
         state: present
+
+    - name: copy justus nginx conf
+      become: yes
+      copy:
+        remote_src: /home/ubuntu/JustUs/justus_nginx.conf
+        dest: /etc/nginx/sites-available/justus_nginx.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: enable justus nginx conf
+      become: yes
+      file:
+        state: link
+        src: /etc/nginx/sites-available/justus_nginx.conf
+        dest: /etc/nginx/sites-enabled/justus_nginx.conf
+
+    - name: unlink default nginx conf
+      become: yes
+      file:
+        state: absent
+        path: /etc/nginx/sites-enabled/default
+
+    - name: restart nginx
+      become: yes
+      service:
+        name: nginx
+        state: restarted
+
+    - name: run gunicorn
+      gunicorn:
+        chdir: /home/ubuntu/JustUs
+        app: app.py
+        worker: geventwebsocket.gunicorn.workers.GeventWebSocketWorker
+        bind: "127.0.0.1:5000"

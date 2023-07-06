@@ -67,7 +67,8 @@ def message(data):
 def disconnect():
     """When client disconnect it removes the sid relation."""
     user: User = current_user
-    id_to_sid.pop(user.id)
+    if user.id in id_to_sid.keys():
+        id_to_sid.pop(user.id)
     r.hdel("chat_sess", f"{user.id}")
 
 

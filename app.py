@@ -46,7 +46,5 @@ def cleanup(exception):
     """cleanly closes the session"""
     sess.close()
 
-
-print(os.getenv('JUSTUS_USER', None))
 if __name__ == '__main__':
     socketio.run(app, host="0.0.0.0", port=8080)
