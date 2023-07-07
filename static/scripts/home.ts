@@ -9,7 +9,7 @@ sio.addEventListener("message", (data: any) => {
         body: res.message, requireInteraction: true, icon: "/static/logos/justus-logo-bowb.png",
     });
     notification.addEventListener("click", () => {
-        location.href = `/chats/${res.sender.id}`;
+        location.href = `/chats/${res.sender.id}/`;
     });
     notification.addEventListener("close", () => {
     });
@@ -34,7 +34,7 @@ closeUpdateProfile.addEventListener("click", () => {
 
 
 async function loadFriends() {
-    const res = await fetch("/users/friends");
+    const res = await fetch("/users/friends/");
     if (res.status === 200) {
         friendsList.innerHTML = ""
         requestsList.innerHTML = ""
@@ -89,7 +89,8 @@ async function loadFriends() {
 }
 
 async function loadAllUsers() {
-    const res = await fetch("/users");
+
+    const res = await fetch(`/users/`);
     if (res.status === 200) usersList.innerHTML = "";
     const data = await res.json();
     data.forEach((user: User) => {

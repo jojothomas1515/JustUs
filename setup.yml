@@ -12,6 +12,7 @@
         clone: yes
         dest: ~/JustUs
         update: yes
+        force: yes
 
     - name: install nginx
       become: yes
@@ -94,9 +95,6 @@
         name: justus
         state: started
         enabled: yes
-      notify:
-        - restart nginx
-
 
     - name: restart nginx
       become: yes

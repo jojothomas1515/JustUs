@@ -53,7 +53,7 @@ messageInput.addEventListener("keydown", (evt) => {
 });
 // todo: delete this
 async function get_users() {
-    const res = await fetch("/users/friends", { method: "GET" });
+    const res = await fetch("/users/friends/", { method: "GET" });
     const data = await res.json();
     return data;
 }
@@ -92,7 +92,7 @@ async function get_users() {
 async function setMessages(user_id) {
     messagesBox.innerHTML = "";
     const friend_id = friendProf.getAttribute("data-userId");
-    const response = await fetch(`/chats/messages/${user_id || friend_id}`);
+    const response = await fetch(`/chats/messages/${user_id || friend_id}/`);
     const messages = await response.json();
     messages.forEach((mesg) => {
         const message = document.createElement("div");
