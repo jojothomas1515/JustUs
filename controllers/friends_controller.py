@@ -7,6 +7,7 @@ from flask_login import current_user
 
 from models.friend import Friend, FriendshipStatus
 from models.user import User
+from models.db import Session
 
 
 def send_friend_request(user_id: str):
@@ -16,15 +17,20 @@ def send_friend_request(user_id: str):
         user_id (str): The id of the user to send the friend request to.
     """
     user: User = current_user
+    sess: Session = Session()
     if not user.is_authenticated:
+        sess.close()
         return jsonify({'error': 'unauthenticated user'}), 401
-    if not User.get('id', user_id):
+    if not sess.query(User).filter_by(id=user_id).first():
+        sess.close()
         return jsonify({"error": "User Not found"}), 404
     if user_id == user.id:
+        sess.close()
         return jsonify({"error": "Cannot send friend request to yourself"}), 400
-    friend = Friend.filter_one(((Friend.requester_id == user.id) & (Friend.requested_id == user_id)) | (
-            (Friend.requester_id == user_id) & (Friend.requested_id == user.id)))
+    friend = sess.query(Friend).filter(((Friend.requester_id == user.id) & (Friend.requested_id == user_id)) | (
+            (Friend.requester_id == user_id) & (Friend.requested_id == user.id))).first()
     if friend:
+        sess.close()
         if friend.status.value == "accepted":
             return jsonify({"error": "You are already friends with this user "}), 400
         elif friend.status.value == "pending":
@@ -32,47 +38,63 @@ def send_friend_request(user_id: str):
         elif friend.status.value == "rejected":
             return jsonify({"error": "You cannot send this user a friend request"}), 400
     friend = Friend(requester_id=user.id, requested_id=user_id, status=FriendshipStatus.pending, )
-    friend.save()
+    sess.add(friend)
+    sess.commit()
+    sess.close()
     return jsonify(success="request sent successfully"), 201
 
 
 def accept_friend_request(user_id: str):
     """Accept a friend request."""
     user: User = current_user
+    sess: Session = Session()
     if not user.is_authenticated:
+        sess.close()
         return jsonify({'error': 'unauthenticated user'}), 401
-    if not User.get('id', user_id):
+    if not sess.query(User).filter_by(id=user_id).first():
+        sess.close()
         return jsonify({"error": "User Not found"}), 404
     if user_id == user.id:
+        sess.close()
         return jsonify({"error": "Bad request"}), 400
-    friend = Friend.filter_one((Friend.requester_id == user_id) & (Friend.requested_id == user.id))
+    friend = sess.query(Friend).filter((Friend.requester_id == user_id) & (Friend.requested_id == user.id)).first()
     if friend:
         if friend.status.value == "accepted":
+            sess.close()
             return jsonify({"error": "You are already friends with this user "}), 400
         elif friend.status.value == "rejected":
+            sess.close()
             return jsonify({"error": "You already rejected this user a friend request"}), 400
 
     friend.status = FriendshipStatus.accepted
-    friend.save()
+    sess.commit()
+    sess.close()
     return jsonify(success="request accepted successfully"), 201
 
 
 def reject_friend_request(user_id: str):
     """Reject a friend request."""
     user: User = current_user
+    sess: Session = Session()
     if not user.is_authenticated:
+        sess.close()
         return jsonify({'error': 'unauthenticated user'}), 401
-    if not User.get('id', user_id):
+    if not sess.query(User).filter_by(id=user_id).first():
+        sess.close()
         return jsonify({"error": "User Not found"}), 404
     if user_id == user.id:
+        sess.close()
         return jsonify({"error": "Bad request"}), 400
-    friend = Friend.filter_one((Friend.requester_id == user_id) & (Friend.requested_id == user.id))
+    friend = sess.query(Friend).filter((Friend.requester_id == user_id) & (Friend.requested_id == user.id)).first()
     if friend:
         if friend.status.value == "accepted":
+            sess.close()
             return jsonify({"error": "You are already friends with this user "}), 400
         elif friend.status.value == "rejected":
+            sess.close()
             return jsonify({"error": "You already rejected this user a friend request"}), 400
 
     friend.status = FriendshipStatus.rejected
-    friend.save()
+    sess.commit()
+    sess.close()
     return jsonify(success="request rejected successfully"), 201

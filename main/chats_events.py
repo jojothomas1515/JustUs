@@ -10,6 +10,7 @@ from flask_login import current_user
 from flask_socketio import emit
 
 from main import socketio
+from models.db import Session
 from models.message import Message
 from models.user import User
 
@@ -53,7 +54,10 @@ def message(data):
     user: User = current_user
     data = json.loads(data)
     if data["id"] is not None:
-        Message(sender_id=user.id, receiver_id=data["id"], message=data["message"]).save()
+        msg = Message(sender_id=user.id, receiver_id=data["id"], message=data["message"])
+        with Session() as session:
+            session.add(msg)
+            session.commit()
         target = r.hget("chat_sess", data["id"])
         if target:
             if target == id_to_sid.get(data["id"]):

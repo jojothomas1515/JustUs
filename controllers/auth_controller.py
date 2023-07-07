@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 """Login controller."""
-import requests
+import datetime as dt
+
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from flask_login import login_user, current_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
-from models.user import User
 
-import datetime as dt
+from models.db import Session
+from models.user import User
 
 
 def login():
@@ -16,21 +17,22 @@ def login():
     password = request.form.get('password')
     remember = request.form.get('remember-me')
 
-    user: User = User.get('email', email)
+    sess = Session()
+    user: User = sess.query(User).filter(User.email == email).first()
     if not user:
         flash("Email not associated with any account", "error")
-        return render_template('login_page.html')
     if check_password_hash(user.password, password):
         if login_user(user=user, remember=remember, duration=dt.timedelta(days=7)):
+            sess.close()
             return redirect(url_for("home.home_page"))
         if not user.is_active:
             flash("Inactive user", "error")
         else:
             flash("Error occurred while trying to log in", "error")
-        return render_template("login_page.html")
     else:
         flash("Incorrect password", "error")
-        return render_template("login_page.html")
+    sess.close()
+    return render_template("login_page.html")
 
 
 def signup():
@@ -42,16 +44,21 @@ def signup():
     password = request.form.get('password')
     password2 = request.form.get('c-password')
 
+    sess = Session()
     if password != password2:
         flash("Passwords do not match", "error")
+        sess.close()
         return render_template('signup_page.html')
-    elif User.get('email', email):
+    elif sess.query(User).filter(User.email == email).first():
         flash('Email already taken by another user', 'error')
+        sess.close()
         return render_template('signup_page.html')
 
     user = User(first_name=first_name, last_name=last_name, middle_name=middle_name, email=email,
                 password=generate_password_hash(password=password), is_active=True)
-    user.save()
+    sess.add(user)
+    sess.commit()
+    sess.close()
     return redirect(url_for(endpoint='auth.login_page'))
 
 
@@ -61,6 +68,10 @@ def update_profile():
     user.first_name = request.form.get("first_name")
     user.last_name = request.form.get("last_name")
     user.middle_name = request.form.get("middle_name")
+    sess = Session()
+    sess.add(user)
+    sess.commit()
+    sess.close()
     return user
 
 
@@ -75,5 +86,8 @@ def update_profile_image():
         file.save(f".{filename}")
         # requests.post(url="http://web-02.jojothomas.tech/upload", files=file)
         user.profile_img = filename
-        user.save()
+        sess = Session()
+        sess.add(user)
+        sess.commit()
+        sess.close()
         return user

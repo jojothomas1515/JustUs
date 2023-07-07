@@ -127,7 +127,7 @@ loadFriends().catch(err => console.log(err));
         if (Notification.permission === "granted") {
             console.log("can show notification")
         } else if (Notification.permission !== "denied") {
-            Notification.requestPermission();
+            await Notification.requestPermission();
         }
     } catch (e) {
         console.log(e);

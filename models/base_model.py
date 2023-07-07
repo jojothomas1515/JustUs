@@ -21,43 +21,6 @@ class BaseModel:
         self.id = uuid4()
         self.__dict__.update(kwargs)
 
-    def save(self):
-        """Save model object to the database"""
-        sess.add(self)
-        sess.commit()
-
-    def delete(self):
-        """Delete user object from database"""
-        sess.delete(self)
-        sess.commit()
-
-    @classmethod
-    def get(cls, key: object, value: object):
-        """Get a specific users
-        Args:
-            value: the data for to use as filter
-            key: the key to filter with
-
-        Returns:
-            User
-        """
-        return sess.query(cls).filter(eval(f'cls.{key}') == value).first()
-
-    @classmethod
-    def filter(cls, *filters):
-        """Filter with the passed conditions"""
-        return sess.query(cls).filter(*filters).all()
-
-    @classmethod
-    def filter_one(cls, *filters):
-        """Filter with the passed conditions"""
-        return sess.query(cls).filter(*filters).first()
-
-    @classmethod
-    def all(cls):
-        """Get all of the class object in the database"""
-        return sess.query(cls).all()
-
     def to_dict(self):
         """convert the object attributes to a dict excluding the password hash"""
         info: dict = self.__dict__.copy()

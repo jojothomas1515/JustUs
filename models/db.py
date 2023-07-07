@@ -16,5 +16,5 @@ engine = create_engine(
                                                                    host=JUSTUS_HOST, dbname=JUSTUS_DB))
 # todo: move to proper position
 sess_factory = sessionmaker(bind=engine, expire_on_commit=False)
-Session = scoped_session(sess_factory)
+Session = sess_factory
 sess = Session()

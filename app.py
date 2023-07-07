@@ -5,10 +5,10 @@ import os
 
 from flask import Flask
 from flask_login import LoginManager
-from models.db import sess
 from main import auth_views, users_views, home_views, serve_file
 from main import chat_views, socketio
 from models.user import User
+from models.db import Session
 from flask_cors import CORS
 
 login_manager = LoginManager()
@@ -29,7 +29,11 @@ def load_user(user_id: str):
     Returns:
           User (object)
     """
-    return User.get('id', user_id)
+    sess = Session()
+    user = sess.get(User, user_id)
+    sess.close()
+    return user
+
 
 
 app.permanent_session_lifetime = dt.timedelta(days=7)
@@ -41,10 +45,11 @@ app.register_blueprint(home_views)
 app.register_blueprint(serve_file)
 
 
-@app.teardown_appcontext
-def cleanup(exception):
-    """cleanly closes the session"""
-    sess.close()
+# @app.teardown_appcontext
+# def cleanup(exception):
+#     """cleanly closes the session"""
+#     sess = Session()
+#     sess.close()
 
 if __name__ == '__main__':
     socketio.run(app, host="0.0.0.0", port=8080)
