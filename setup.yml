@@ -96,12 +96,6 @@
         state: started
         enabled: yes
 
-    - name: restart nginx
-      become: yes
-      service:
-        name: nginx
-        state: restarted
-
     - name: refresh snap
       become: yes
       shell: sudo snap install core; sudo snap refresh core
@@ -115,8 +109,14 @@
 
     - name: link certbot
       become: yes
-      shell: sudo ln -s /snap/bin/certbot /usr/bin/certbot
+      shell: sudo ln -s /snap/bin/certbot /usr/bin/certbot -f
 
     - name: certbot ssl
       become: yes
-      shell: sudo certbot --nginx -d justus.jojothomas.tech --non-interactive --agree-tos --email
+      shell: sudo certbot --nginx -d justus.jojothomas.tech --non-interactive --agree-tos --email flashsam8@gmail.com
+
+    - name: restart nginx
+      become: yes
+      service:
+        name: nginx
+        state: restarted

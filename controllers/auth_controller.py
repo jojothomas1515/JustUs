@@ -22,6 +22,8 @@ def login():
     user: User = sess.query(User).filter(User.email == email).first()
     if not user:
         flash("Email not associated with any account", "error")
+        sess.close()
+        return render_template("login_page.html")
     if check_password_hash(user.password, password):
         if login_user(user=user, remember=remember, duration=dt.timedelta(days=7)):
             sess.close()
