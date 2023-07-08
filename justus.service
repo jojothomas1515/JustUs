@@ -3,11 +3,11 @@ Description=JustUs
 After=network.target
 
 [Service]
-User=ubuntu
+User=root
 Group=www-data
 WorkingDirectory=/home/ubuntu/JustUs/
 EnvironmentFile=/home/ubuntu/JustUs/justus_env.env
-ExecStart=sudo /usr/local/bin/gunicorn  -k eventlet -w 1 -b 0.0.0.0:5000 --threads 30 app:app --access-logfile /var/log/justus-access.log --error-logfile /var/log/justus-error.log
+ExecStart=JUSTUS_HOST=web-02.jojothomas.tech JUSTUS_DB=justus JUSTUS_PWD=justus_pwd JUSTUS_USER=justus /usr/local/bin/gunicorn  -k eventlet -w 1 -b 0.0.0.0:5000 --threads 30 app:app --access-logfile /var/log/justus-access.log --error-logfile /var/log/justus-error.log
 
 Restart=always
 [Install]
