@@ -7,8 +7,8 @@ from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-JUSTUS_USER = getenv('JUSTUS_USER', 'test')
-JUSTUS_PWD = getenv('JUSTUS_PWD', 'test_pwd')
+JUSTUS_USER = getenv('JUSTUS_USER', 'justus')
+JUSTUS_PWD = getenv('JUSTUS_PWD', 'justus_pwd')
 JUSTUS_HOST = getenv('JUSTUS_HOST', 'localhost')
 JUSTUS_DB = getenv('JUSTUS_DB', 'justus')
 engine = create_engine(
