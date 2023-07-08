@@ -7,7 +7,7 @@ User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/JustUs/
 EnvironmentFile=/home/ubuntu/JustUs/justus_env.env
-ExecStart=/usr/local/bin/gunicorn  -k eventlet -w 1 -b 0.0.0.0:5000 --threads 30 app:app --access-logfile /home/ubuntu/JustUs/logs/access.log --error-logfile /home/ubuntu/JustUs/logs/error.log
+ExecStart=sudo /usr/local/bin/gunicorn  -k eventlet -w 1 -b 0.0.0.0:5000 --threads 30 app:app --access-logfile /var/log/justus-access.log --error-logfile /var/log/justus-error.log
 
 Restart=always
 [Install]
