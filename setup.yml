@@ -102,6 +102,21 @@
         name: nginx
         state: restarted
 
+    - name: refresh snap
+      become: yes
+      shell: sudo snap install core; sudo snap refresh core
+
+    - name: install certbot
+      become: yes
+      snap:
+        name: certbot
+        classic: yes
+        state: present
+
+    - name: link certbot
+      become: yes
+      shell: sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
     - name: certbot ssl
       become: yes
       shell: sudo certbot --nginx -d justus.jojothomas.tech --non-interactive --agree-tos --email
