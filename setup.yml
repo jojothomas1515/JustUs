@@ -1,6 +1,6 @@
 ---
 - name: setup justus
-  hosts: web_servers
+  hosts: alx-web-2
   tasks: #    - name: copy file to server
     #      copy:
     #        src: ../JustUs/tsconfig.json
@@ -101,3 +101,7 @@
       service:
         name: nginx
         state: restarted
+
+    - name: certbot ssl
+      become: yes
+      shell: sudo certbot --nginx -d justus.jojothomas.tech --non-interactive --agree-tos --email

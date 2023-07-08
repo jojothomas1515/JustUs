@@ -8,6 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from models.db import Session
 from models.user import User
+from os import mkdir, path
 
 
 def login():
@@ -82,6 +83,8 @@ def update_profile_image():
         user: User = current_user
         if not user.is_authenticated:
             return jsonify(error="Unauthorized User")
+        if not path.exists(f"./files/profile_images"):
+            mkdir(f"./files/profile_images")
         filename = f"/files/profile_images/{user.id}.jpg"
         file.save(f".{filename}")
         # requests.post(url="http://web-02.jojothomas.tech/upload", files=file)
