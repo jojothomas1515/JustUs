@@ -13,3 +13,10 @@ from main import home_views
 def home_page():
     """View for home."""
     return render_template("home.html", user=current_user)
+
+
+@home_views.route("/landing_page" ,strict_slashes=False)
+def landing_page():
+    """landing_page view"""
+    return render_template("landing_page.html")
+

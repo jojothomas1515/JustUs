@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/landing_page.css') }}">
+    <title>Justus Realtime Communication</title>
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h2>JustUs</h2>
+        <div class="section-links">
+            <a href="#intro-section">Intro</a>
+            <a href="#feature-section">Features</a>
+            <a href="#about-section">About</a>
+        </div>
+        <div class="login-signup-btn-con">
+            <a class="login-btn" href="{{ url_for("auth.login_page") }}">Login</a>
+            <a class="signup-btn" href="{{ url_for("auth.signup_page") }}">Sign Up</a>
+        </div>
+    </header>
+
+    <section class="intro-section" id="intro-section">
+        <div class="background-filter">
+            <div class="content">
+                <h1>Justus</h1>
+                <h5 class="tagline">Realtime Communication</h5>
+                <a id="get-started" href="{{ url_for("auth.signup_page") }}">Get Started</a>
+            </div>
+        </div>
+
+    </section>
+    <section class="feature-section" id="feature-section">
+        <div class="feature-item">
+            <div>
+                <h4>Realtime Communication</h4>
+                <p>Guarantee secure realtime communication with users you're connected with</p>
+            </div>
+
+        </div>
+        <div class="feature-item">
+            <div>
+                <h4>Data Persistence</h4>
+                <p>With our secure and reliable database infrastructure, your conversation will be safe and that none of
+                    you conversation will get lost </p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div>
+                <h4>Secure Authentication</h4>
+                <p>Securely Signup and login with ease</p>
+            </div>
+        </div>
+    </section>
+    <section class="about-section" id="about-section">
+        <div class="inspiration">
+            <h4>My Inspiration</h4>
+            <p>
+                Justus is a realtime communication platform that was inspired by the need to have a secure and reliable
+                communication platform for the people of Nigeria and Africa at large. We believe that realtime
+                communication is the future of communication and we are here to make that happen
+            </p>
+        </div>
+        <div class="connect-section" id="connect-section">
+            <h4>Connect with me</h4>
+            <div class="social-links">
+                <a href="https://twitter.com/jojothomas1515" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/in/joseph-thomas-ehigie-551452210/" target="_blank"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/jojothomas1515" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+
+    </section>
+{% endblock %}
