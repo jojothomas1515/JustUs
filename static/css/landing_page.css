@@ -19,6 +19,96 @@ header h2 {
   color: #00264d;
   margin-left: 20px;
 }
+header .menu-btn {
+  display: none;
+  font-size: 30px;
+  font-weight: 600;
+  color: #00264d;
+  margin-right: 20px;
+  cursor: pointer;
+  border: none;
+  padding: 1rem;
+}
+header .menu-btn:hover {
+  color: #fff;
+  background-color: #00264d;
+}
+@media (max-width: 768px) {
+  header .menu-btn {
+    display: block;
+  }
+}
+header .links {
+  display: flex;
+}
+@media screen and (max-width: 768px) {
+  header .links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #fff;
+    top: -300px;
+    width: 100%;
+    gap: 20px;
+  }
+  header .links .section-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+  header .links .section-links a {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4a4a4a;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+  header .links .section-links a:hover {
+    color: #00264d;
+  }
+  header .links .login-signup-btn-con {
+    display: flex;
+    width: 100%;
+    gap: 0;
+    flex-direction: column;
+  }
+  header .links .login-signup-btn-con .login-btn {
+    font-size: 20px;
+    font-weight: 600;
+    color: #f5f5f5;
+    background-color: #00264d;
+    text-decoration: none;
+    border: #f5f5f5 1px solid;
+    padding: 10px 20px;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+    text-align: center;
+  }
+  header .links .login-signup-btn-con .login-btn:hover {
+    box-shadow: 0 0 10px 0 rgb(0, 0, 0);
+    scale: 1;
+  }
+  header .links .login-signup-btn-con .signup-btn {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #00264d;
+    text-decoration: none;
+    background-color: #f5f5f5;
+    border: 1px solid #00264d;
+    padding: 10px 20px;
+    transition: all 0.2s ease-in-out;
+    width: 100%;
+  }
+  header .links .login-signup-btn-con .signup-btn:hover {
+    background-color: #00264d;
+    color: white;
+  }
+}
 header .section-links {
   display: flex;
   gap: 20px;
@@ -148,6 +238,66 @@ header .login-signup-btn-con .signup-btn:hover {
   width: 400px;
   padding: 2rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.about-section {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  min-height: 300px;
+  background-color: #f5f5f5;
+}
+
+.inspiration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  background-color: #f5f5f5;
+  padding: 1rem;
+}
+.inspiration h4 {
+  font-size: 25px;
+  font-weight: 400;
+  color: #00264d;
+  margin-bottom: 20px;
+}
+.inspiration p {
+  font-size: 20px;
+  font-weight: 400;
+  color: #4a4a4a;
+  margin-bottom: 20px;
+}
+
+.connect-section {
+  padding: 2rem;
+}
+.connect-section h4 {
+  font-size: 25px;
+  font-weight: 400;
+  color: #00264d;
+  margin-bottom: 20px;
+}
+.connect-section .social-links {
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.connect-section .social-links a {
+  font-size: 20px;
+  font-weight: 600;
+  color: #4a4a4a;
+  text-decoration: none;
+}
+.connect-section .social-links a:hover {
+  color: #00264d;
 }
 
 /*# sourceMappingURL=landing_page.css.map */

@@ -7,14 +7,17 @@
 {% block content %}
     <header>
         <h2>JustUs</h2>
-        <div class="section-links">
-            <a href="#intro-section">Intro</a>
-            <a href="#feature-section">Features</a>
-            <a href="#about-section">About</a>
-        </div>
-        <div class="login-signup-btn-con">
-            <a class="login-btn" href="{{ url_for("auth.login_page") }}">Login</a>
-            <a class="signup-btn" href="{{ url_for("auth.signup_page") }}">Sign Up</a>
+        <button class="menu-btn"><i class="fa fa-bars"></i></button>
+        <div class="links">
+            <div class="section-links">
+                <a href="#intro-section">Intro</a>
+                <a href="#feature-section">Features</a>
+                <a href="#about-section">About</a>
+            </div>
+            <div class="login-signup-btn-con">
+                <a class="login-btn" href="{{ url_for("auth.login_page") }}">Login</a>
+                <a class="signup-btn" href="{{ url_for("auth.signup_page") }}">Sign Up</a>
+            </div>
         </div>
     </header>
 
@@ -67,6 +70,7 @@
                         class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/jojothomas1515" target="_blank"><i class="fab fa-github"></i></a>
             </div>
+        </div>
 
     </section>
 {% endblock %}
