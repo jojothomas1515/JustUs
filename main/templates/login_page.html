@@ -7,7 +7,7 @@
     <title>JustUs Login</title>
 {% endblock %}
 {% block content %}
-    <img class='logo' src="{{ url_for('user.static', filename='images/logos/justus-logo-tbc.png') }}">
+    <a class="logo-link" href="{{ url_for("home.landing_page") }}" style="text-decoration: none"><img class='logo' src="{{ url_for('user.static', filename='images/logos/justus-logo-tbc.png') }}"></a>
 
     <form method="post">
         <div class="user-icon-con">

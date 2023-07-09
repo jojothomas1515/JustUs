@@ -11,7 +11,7 @@ header {
   height: 80px;
   top: 0;
   position: sticky;
-  z-index: 100;
+  z-index: 1000;
 }
 header h2 {
   font-size: 30px;
@@ -50,6 +50,11 @@ header .links {
     top: -300px;
     width: 100%;
     gap: 20px;
+    z-index: 100;
+    transition: top 0.2s ease-in-out;
+  }
+  header .links.show-nav {
+    top: 100%;
   }
   header .links .section-links {
     display: flex;

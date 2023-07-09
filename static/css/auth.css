@@ -1,3 +1,12 @@
+body .logo-link {
+  max-width: min(100%, 25rem);
+  aspect-ratio: 1/0.8;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
 body .logo {
   max-width: min(100%, 25rem);
   aspect-ratio: 1/0.8;

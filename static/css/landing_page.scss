@@ -13,7 +13,7 @@ header {
   height: 80px;
   top: 0;
   position: sticky;
-  z-index: 100;
+  z-index: 1000;
 
   h2 {
     font-size: 30px;
@@ -53,6 +53,12 @@ header {
       top: -300px;
       width: 100%;
       gap: 20px;
+      z-index: 100;
+      transition: top 0.2s ease-in-out;
+
+      &.show-nav {
+        top: 100%;
+      }
 
       .section-links {
         display: flex;
@@ -75,48 +81,48 @@ header {
           }
         }
       }
-.login-signup-btn-con {
-      display: flex;
-      width: 100%;
-      gap: 0;
-      flex-direction: column;
-
-      .login-btn {
-        font-size: 20px;
-        font-weight: 600;
-        color: #f5f5f5;
-        background-color: #00264d;
-        text-decoration: none;
-        border: #f5f5f5 1px solid;
-        padding: 10px 20px;
-        transition: all 0.2s ease-in-out;
+      .login-signup-btn-con {
+        display: flex;
         width: 100%;
-        text-align: center;
+        gap: 0;
+        flex-direction: column;
 
-        &:hover {
-          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
-          scale: 1;
-        }
-      }
-
-      .signup-btn {
-        text-align: center;
-        font-size: 20px;
-        font-weight: 600;
-        color: #00264d;
-        text-decoration: none;
-        background-color: #f5f5f5;
-        border: 1px solid #00264d;
-        padding: 10px 20px;
-        transition: all 0.2s ease-in-out;
-        width: 100%;
-
-        &:hover {
+        .login-btn {
+          font-size: 20px;
+          font-weight: 600;
+          color: #f5f5f5;
           background-color: #00264d;
-          color: white;
+          text-decoration: none;
+          border: #f5f5f5 1px solid;
+          padding: 10px 20px;
+          transition: all 0.2s ease-in-out;
+          width: 100%;
+          text-align: center;
+
+          &:hover {
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
+            scale: 1;
+          }
+        }
+
+        .signup-btn {
+          text-align: center;
+          font-size: 20px;
+          font-weight: 600;
+          color: #00264d;
+          text-decoration: none;
+          background-color: #f5f5f5;
+          border: 1px solid #00264d;
+          padding: 10px 20px;
+          transition: all 0.2s ease-in-out;
+          width: 100%;
+
+          &:hover {
+            background-color: #00264d;
+            color: white;
+          }
         }
       }
-    }
 
 
     }

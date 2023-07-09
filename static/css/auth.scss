@@ -1,4 +1,14 @@
 body {
+  .logo-link {
+    max-width: min(100%, 25rem);
+    aspect-ratio: 1/.8;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
   .logo {
     max-width: min(100%, 25rem);
     aspect-ratio: 1/.8;
